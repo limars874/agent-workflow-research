@@ -12,16 +12,28 @@
 - 单一职责:verify / review / secret-scan 各写各的。
 - **L 级是接线决定**:手动跑 = L1,接到 git hook = L3。代码不改,接线=升级。
 
+## 两类件(缺一不可)
+
+- **能力件** = `skills/` 下的 SKILL.md(靠 prompt、可移植):教 agent 怎么澄清/写规格/切片/实现/复盘。抄各 repo 的流程。
+- **强制件** = `lib/` 下的脚本(靠 git、不可绕):没做到就拦。
+- **咬合**:能力件产出的文件正是强制件的输入(`spec` 写 `spec.md` → `verify.sh` 读它跑)。提示词漂移了,脚本兜底。
+
 ## 目录
 
 ```
 flow
 ├── flow                      手动入口:./flow <verify|review|secret|check|status>
-├── lib/                      核心强制件(触发器无关)
+├── skills/                   能力件(抄流程的 SKILL.md,靠 prompt)
+│   ├── grill.md              S1 澄清意图(抄 mattpocock grilling)
+│   ├── spec.md               S2 写清规格(抄 missions/spec-kit)→ 产出 spec.md
+│   ├── slice.md              S3 小步切片(抄 superpowers/gsd)
+│   ├── implement.md          S4 受控执行(抄 gsd 偏差协议)
+│   └── retro.md              S8 复盘沉淀(抄 trellis/maestro)
+├── lib/                      强制件(触发器无关,靠 git)
 │   ├── common.sh             共享:退出码、range 计算、日志
-│   ├── verify.sh             跑 spec 里的 verify 命令(完成权门禁)
-│   ├── review.sh             跨模型审 diff(fail-open + 落盘)
-│   └── secret-scan.sh        扫密钥
+│   ├── verify.sh             跑 spec 的 verify 命令(S5 完成权门禁)
+│   ├── review.sh             跨模型审 diff(S6,fail-open + 落盘)
+│   └── secret-scan.sh        扫密钥(C4)
 ├── adapters/githooks/        薄适配层(每个三五行,调 lib/)
 │   ├── pre-push              verify + review
 │   └── pre-commit            secret-scan

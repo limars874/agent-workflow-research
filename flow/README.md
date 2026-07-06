@@ -14,21 +14,25 @@
 
 ## 两类件(缺一不可)
 
-- **能力件** = `skills/` 下的 SKILL.md(靠 prompt、可移植):教 agent 怎么澄清/写规格/切片/实现/复盘。抄各 repo 的流程。
+- **能力件** = `skills/` 下的 SKILL.md(靠 prompt、可移植)。**能抄的逐字抄**(vendored,mattpocock/skills,MIT);**抄不了的自组并诚实标注**。来源/许可/署名见 `skills/SOURCES.md`。
 - **强制件** = `lib/` 下的脚本(靠 git、不可绕):没做到就拦。
-- **咬合**:能力件产出的文件正是强制件的输入(`spec` 写 `spec.md` → `verify.sh` 读它跑)。提示词漂移了,脚本兜底。
+- ⚠️ 两者**目前尚未咬合**(mattpocock 的 to-prd 不产出 verify.sh 要读的 spec.md),是待解决的集成缺口,见 `skills/SOURCES.md` 第三节。
 
 ## 目录
 
 ```
 flow
 ├── flow                      手动入口:./flow <verify|review|secret|check|status>
-├── skills/                   能力件(抄流程的 SKILL.md,靠 prompt)
-│   ├── grill.md              S1 澄清意图(抄 mattpocock grilling)
-│   ├── spec.md               S2 写清规格(抄 missions/spec-kit)→ 产出 spec.md
-│   ├── slice.md              S3 小步切片(抄 superpowers/gsd)
-│   ├── implement.md          S4 受控执行(抄 gsd 偏差协议)
-│   └── retro.md              S8 复盘沉淀(抄 trellis/maestro)
+├── skills/                   能力件(SKILL.md,靠 prompt)
+│   ├── SOURCES.md            ★来源/许可/署名/集成缺口(先读这个)
+│   ├── LICENSE.mattpocock    vendored 部分的 MIT 许可(复制义务)
+│   ├── grilling/SKILL.md     S1 澄清(mattpocock 逐字)
+│   ├── to-prd/SKILL.md       S2 规格(mattpocock 逐字)
+│   ├── to-issues/SKILL.md    S3 切片(mattpocock 逐字)
+│   ├── implement/SKILL.md    S4 实现(mattpocock 逐字)
+│   ├── tdd/SKILL.md          S5 验证(mattpocock 逐字;附属 tests.md/mocking.md 待补)
+│   ├── code-review/SKILL.md  S6 审查(mattpocock 逐字)
+│   └── diagnosing-bugs/SKILL.md  S5 调试(mattpocock 逐字)
 ├── lib/                      强制件(触发器无关,靠 git)
 │   ├── common.sh             共享:退出码、range 计算、日志
 │   ├── verify.sh             跑 spec 的 verify 命令(S5 完成权门禁)
@@ -62,7 +66,13 @@ flow
 
 ## 现状(v0)
 
+强制件(脚本):
 - ✅ 契约、入口、退出码、range 计算、适配层、三档接线器可跑
 - ✅ secret-scan 基础可用;verify 能抽取并执行 `spec.md` 的 verify 行
 - ⏳ review 是 fail-open 骨架(靠 `FLOW_REVIEW_CMD` 指定二审模型 CLI,未配则告警放行)
 - ⏳ state.json/recover、断言防护、commit-msg 追溯待补
+
+能力件(SKILL.md):
+- ✅ 7 个 mattpocock skill 逐字 vendored(S1-S6),MIT 许可随附
+- ⏳ tdd 的附属 `tests.md`/`mocking.md`、`CONTEXT.md`/ADR 约定待补(限流未拉全)
+- ⏳ spec↔verify 集成缺口未解决;retro/放跑等 flow-native 件未写(见 SOURCES.md)

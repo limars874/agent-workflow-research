@@ -40,24 +40,20 @@ vendored 文件里有指向**尚未拉取**的兄弟文件/约定,现在是悬�
 
 以下步骤**没有可逐字复制的干净源**,需自己写并诚实标注,**不会伪装成"抄来的"**:
 
-| 能力 | 为什么自组 |
-|---|---|
-| spec ↔ verify.sh 的咬合约定 | 见下"集成缺口";mattpocock 的 to-prd 产出 tracker PRD,不产出我们脚本要读的 `spec.md` |
-| retro / learnings | 源是 trellis(AGPL,传染,不能抄)+ maestro(无 LICENSE=保留所有权利,不能抄) |
-| 放跑挡位 / 状态恢复 | 本就是本仓库自有机制 |
+| 能力 | 状态 | 综合自哪些机制(致敬,非复制) |
+|---|---|---|
+| `spec/`(S2 规格) | ✅ 已写 | spec-kit 的需求编号+converge 反查、missions 的机器可验收+反 mock、mattpocock 的 seam 先约定。**是原创综合,不是任何一家的复制** |
+| retro / learnings | ⏳ 未写 | 源是 trellis(AGPL,传染,不能抄)+ maestro(无 LICENSE,不能抄)——只能自组 |
+| 放跑挡位 / 状态恢复 | ⏳ 未写 | 本就是本仓库自有机制 |
 
 ---
 
-## 三、⚠️ 集成缺口(必须正视,未解决)
+## 三、集成缺口(Phase 1 已解决)
 
-强制层 `flow/lib/verify.sh` 期望仓库根有 `spec.md`,每条验收写成 `verify: <命令>`。
-但 vendored 的 `to-prd` **不产出这个格式**——它产出 issue tracker 里的 PRD。
+原缺口:mattpocock 的 to-prd 产出 tracker PRD,不产出 verify.sh 要读的 spec.md。
 
-**即:能力件(mattpocock)和强制件(我们的脚本)现在不咬合。** 二选一:
-- (a) 改 `verify.sh` 去适配 mattpocock 的 PRD/issue 产物;或
-- (b) 保留一个 flow-native 的 spec 约定(自组),只在它和 to-prd 之间做一次转换。
-
-这是设计决策,留给下一步定,**不在文档里假装已解决**。
+**解法(已落地)**:走上面的方案 (b)——写了 flow-native 的 `spec/` 能力件,产出 `flow/CONTRACT.md §spec.md` 定义的格式,`verify.sh` 直接读它。咬合检查点已过(真 spec 跑通、拦截/放行两条路径都验)。
+to-prd 现定位为**可选的前段 craft 参考**(它的 seam-先约定、tight PRD 思路已吸收进 spec skill),不再要求它直接驱动门禁。
 
 ---
 

@@ -24,8 +24,8 @@
 > **任何件都不许自建私有状态。** 要读写状态,只能走上表。需要新状态?先在这张表里加一行(慎重),绝不开私有旁路。
 > 新增任何 skill/脚本,第一步是声明它的 `(读, 写)`——对不上这张表,就是要散架的信号。
 
-- [ ] 把上表定稿为 `flow/CONTRACT.md`(单独成文,后续每件顶部引用它)
-- [ ] 定 `state.json` 字段:`{task, step, slices:[{id,status}], updated_by}`,**无时间戳**(抄 web-dev-skills,便于无状态重建)
+- [x] 把上表定稿为 `flow/CONTRACT.md`(单独成文,后续每件顶部引用它)
+- [x] 定 `state.json` 字段:`{task, step, slices:[{id,status}], updated_by}`,**无时间戳**(抄 web-dev-skills,便于无状态重建)
 
 ---
 
@@ -39,10 +39,10 @@
 - mattpocock → seam 先与人约定
 - **合成出的新物**:一份 spec 同时是①人读的规格 ②`verify.sh` 直接能跑的门禁 ③可反向查漏的清单
 
-- [ ] 定稿 `spec.md` 格式(需求编号 + 每条 AC 带 `verify:` 命令 + out-of-scope 段)
-- [ ] 重写 `flow/lib/verify.sh` 读该格式(现在是雏形,对齐到定稿)
-- [ ] 写 `flow/skills/spec/SKILL.md`(**flow-native,诚实标"综合自 spec-kit/missions/mattpocock"**)
-- ✅ **咬合检查点**:spec skill 的产出 === verify.sh 的输入,拿一个真 spec 跑通 `./flow verify`
+- [x] 定稿 `spec.md` 格式(需求编号 + Seams + 每条 AC 带 `verify:` 命令 + out-of-scope 段)→ CONTRACT §spec.md
+- [x] `flow/lib/verify.sh` 读该格式(per-AC 证据落盘 `.flow/evidence/ac-N.log`)
+- [x] 写 `flow/skills/spec/SKILL.md` + `EXAMPLE.md`(**flow-native,综合自 spec-kit/missions/mattpocock**)
+- [x] ✅ **咬合检查点已过**:真 spec 跑通 `verify.sh`,拦截路径退出 1、修好退出 0、每条 AC 证据落盘
 
 > 停靠点 A:到这里,"写规格→机器验收"闭环可用,已经比裸用任何一家强。
 
@@ -95,9 +95,9 @@
 ## 进度总览
 
 - [x] Phase 4 部分:7 个 craft 件 vendored
-- [ ] **Phase 0(下一步):立脊柱 CONTRACT.md** ← 建议从这里开始
-- [ ] Phase 1:S2 合成 + verify 咬合(keystone)
-- [ ] Phase 2:完成权接线
+- [x] Phase 0:立脊柱 `CONTRACT.md`(artifact 契约 + state.json 字段)
+- [x] Phase 1:S2 规格合成 + verify 咬合(keystone)——**咬合检查点已过**
+- [ ] **Phase 2(下一步):完成权接线** ← verify 全绿由脚本翻 state.json 的 done
 - [ ] Phase 3:retro 双环
 - [ ] Phase 4 收尾:补附属 + 接线
 - [ ] Phase 5:端到端

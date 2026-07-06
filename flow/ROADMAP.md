@@ -1,0 +1,105 @@
+# flow 实现 Roadmap(脊柱优先,防散架)
+
+> 目标:吸取各家优点**合成**一个更好的,而不是抄一个或拼一堆。
+> 防散架的机制:**先立一根脊柱(artifact 契约),每一格合成都对着它做,阶段间设咬合检查点。**
+> 可随时停:每个 Phase 结束都是"系统仍然合得上"的完整停靠点。
+
+---
+
+## Phase 0 — 立脊柱:artifact 契约(必须最先,是防散架的地基)
+
+**唯一真相源 = 一组约定文件。所有能力件(prompt)和强制件(script)只通过这些文件对话。**
+
+| artifact | 谁写 | 谁读 | 作用 |
+|---|---|---|---|
+| `spec.md`(仓库根) | spec(S2) | verify.sh、implement、review、retro | 规格唯一真相源;**窄腰**,一切咬合在此 |
+| `.flow/approved` | grill(S1) | implement 开工前置 | 对齐门:没批准不许写实现 |
+| `.flow/tasks.md` | slice(S3) | implement、run-loop | 切片与依赖 |
+| `.flow/state.json` | 脚本(**非 LLM**) | recover、status | "现在在哪";完成态只准脚本写 |
+| `.flow/summary.md` | implement(S4) | review、retro | "当时为什么这么做" |
+| `.flow/reviews/<sha>.md` | review.sh(S6) | 人、retro | 独立审查留痕 |
+| `.flow/learnings.md` → 毕业进 `AGENTS.md` | retro(S8) | 下个 session 自动加载 | 复盘双环 |
+
+**铁律(这条就是防散架本身)**:
+> **任何件都不许自建私有状态。** 要读写状态,只能走上表。需要新状态?先在这张表里加一行(慎重),绝不开私有旁路。
+> 新增任何 skill/脚本,第一步是声明它的 `(读, 写)`——对不上这张表,就是要散架的信号。
+
+- [ ] 把上表定稿为 `flow/CONTRACT.md`(单独成文,后续每件顶部引用它)
+- [ ] 定 `state.json` 字段:`{task, step, slices:[{id,status}], updated_by}`,**无时间戳**(抄 web-dev-skills,便于无状态重建)
+
+---
+
+## Phase 1 — keystone:S2 规格合成 + 让 verify.sh 读它(先做这个,它同时解集成缺口)
+
+**为什么先做**:`spec.md` 是窄腰。定了它,能力件和强制件就咬上了;不定,后面全是空中楼阁。
+
+**从谁吸取什么(合成,非抄)**:
+- spec-kit → 需求编号(可追溯)+ `/converge` 式"实现后反查 missing/unrequested"
+- missions → 每条验收写成**机器可跑**形式 + "端到端禁 import 内部模块绕过"
+- mattpocock → seam 先与人约定
+- **合成出的新物**:一份 spec 同时是①人读的规格 ②`verify.sh` 直接能跑的门禁 ③可反向查漏的清单
+
+- [ ] 定稿 `spec.md` 格式(需求编号 + 每条 AC 带 `verify:` 命令 + out-of-scope 段)
+- [ ] 重写 `flow/lib/verify.sh` 读该格式(现在是雏形,对齐到定稿)
+- [ ] 写 `flow/skills/spec/SKILL.md`(**flow-native,诚实标"综合自 spec-kit/missions/mattpocock"**)
+- ✅ **咬合检查点**:spec skill 的产出 === verify.sh 的输入,拿一个真 spec 跑通 `./flow verify`
+
+> 停靠点 A:到这里,"写规格→机器验收"闭环可用,已经比裸用任何一家强。
+
+---
+
+## Phase 2 — 完成权接线(C5,flow-native 合成)
+
+**从谁吸取**:consensus-rnd(只认退出码 + sentinel,日志文本不算)+ maestro(完成态只准 CLI 写)。
+**合成出的新物**:host 无关的轻量版——`state.json` 的 `slices[].status=done` **只准 verify.sh 按退出码翻**,LLM 永远不能自己写 done。
+
+- [ ] `verify.sh` 全绿时,由脚本把对应 slice 翻成 `done` 写入 `state.json`
+- [ ] pre-push 适配层:非全绿则 `state` 不动、push 被拦
+- ✅ **咬合检查点**:审查代码里没有任何路径让 LLM 直接写 `state.json` 的 done(只 verify.sh 能)
+
+> 停靠点 B:完成权从 LLM 手里剥夺,机器说了算。
+
+---
+
+## Phase 3 — retro 双环(S8,只能自组:源是 AGPL/无许可)
+
+**从谁吸取**:trellis(回写作 commit 前置)+ maestro(洞见自动注入)。二者各做一半且**都不能抄**。
+**合成出的新物**:host 无关双环——回写 `.flow/learnings.md`,稳定项**毕业进 `AGENTS.md`**(每个 host 启动自动加载 = 不靠 hook 的注入)。
+
+- [ ] 写 `flow/skills/retro/SKILL.md`(flow-native)
+- [ ] 定"毕业"规则:learnings.md 是流水账,AGENTS.md 是提炼后生效的规则
+- ✅ **咬合检查点**:retro 读 `summary.md`+`reviews/`,写 `learnings.md`;毕业目标 `AGENTS.md` 确实被下个 session 加载
+
+---
+
+## Phase 4 — 采用 mattpocock craft 件,接线到契约(不重写,只接 I/O)
+
+这些**单一源已是天花板**,不合成、不改写,只把它们的输入输出接到契约上。
+
+- [x] 逐字 vendored:grilling / to-prd / to-issues / implement / tdd / code-review / diagnosing-bugs(MIT + 署名)
+- [ ] 补齐限流未拉的附属:`tdd/tests.md`、`tdd/mocking.md`;建立 `CONTEXT.md`/ADR 约定
+- [ ] 写薄接线说明(**不改 skill 本身**):grilling 达成共识后 → `./flow approve` 写 `.flow/approved`;implement 收工 → 交 verify.sh
+- [ ] 决策:to-prd(产 tracker PRD)与我们的 spec.md 二选一或做一次转换(Phase 1 定了 spec.md 后回填)
+- ✅ **咬合检查点**:每个 vendored skill 的产出都被接进契约 artifact,没有游离在外的
+
+---
+
+## Phase 5 — 端到端验证(一个真实小任务走完)
+
+- [ ] 挑一个真实小需求,走 grill→spec→slice→implement→verify→review→retro
+- [ ] 确认 7 个 artifact 按契约流转、门禁按预期触发/拦截
+- [ ] 记录真实痛点 → 回头只加疼的那一个机制(痛点驱动,不追完备)
+
+---
+
+## 进度总览
+
+- [x] Phase 4 部分:7 个 craft 件 vendored
+- [ ] **Phase 0(下一步):立脊柱 CONTRACT.md** ← 建议从这里开始
+- [ ] Phase 1:S2 合成 + verify 咬合(keystone)
+- [ ] Phase 2:完成权接线
+- [ ] Phase 3:retro 双环
+- [ ] Phase 4 收尾:补附属 + 接线
+- [ ] Phase 5:端到端
+
+**做一点是一点的原则**:按 Phase 顺序走,每个停靠点系统都合得上;跳着做会撞穿脊柱契约,别跳。

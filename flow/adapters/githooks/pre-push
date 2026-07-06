@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# 薄适配层:git pre-push → 调核心件 verify + review。
+# 逻辑不在这里,这里只把 hook 上下文转成核心件的参数(范围默认 origin/main...HEAD)。
+# 绕过:git push --no-verify(git hook 定位是"防抄近路",硬门在服务端分支保护)。
+set -euo pipefail
+lib="$(git rev-parse --show-toplevel)/flow/lib"
+"$lib/verify.sh" && "$lib/review.sh"

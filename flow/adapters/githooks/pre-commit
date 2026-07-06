@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# 薄适配层:git pre-commit → 调核心件 secret-scan(只扫暂存文件,保持快)。
+# 高频轻校验放这;慢活(verify/review)放 pre-push。
+set -euo pipefail
+lib="$(git rev-parse --show-toplevel)/flow/lib"
+# 只扫暂存的文件,避免全仓扫拖慢每次提交
+mapfile -t staged < <(git diff --cached --name-only --diff-filter=ACM)
+[ "${#staged[@]}" -eq 0 ] && exit 0
+"$lib/secret-scan.sh" "${staged[@]}"

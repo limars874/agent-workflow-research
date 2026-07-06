@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# 手动入口(dispatcher)。触发器无关的核心件都在 lib/,这里只做转发。
+# 用法:./flow <verify|review|secret|check|status> [--range R]
+set -euo pipefail
+here=$(cd "$(dirname "$0")" && pwd)
+
+cmd="${1:-help}"; shift || true
+case "$cmd" in
+  verify) exec "$here/lib/verify.sh" "$@" ;;
+  review) exec "$here/lib/review.sh" "$@" ;;
+  secret) exec "$here/lib/secret-scan.sh" "$@" ;;
+  check)
+    # 全门顺跑:任一非零即停并透传退出码
+    "$here/lib/secret-scan.sh" "$@" && \
+    "$here/lib/verify.sh"      "$@" && \
+    "$here/lib/review.sh"      "$@"
+    ;;
+  status)
+    root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+    if [ -f "$root/.flow/state.json" ]; then cat "$root/.flow/state.json"; else echo '{"state":"none","note":".flow/state.json 尚未创建"}'; fi
+    ;;
+  help|*)
+    cat >&2 <<'EOF'
+用法: ./flow <命令> [--range R]
+  verify   跑 spec.md 里的验收命令(完成权门禁)
+  review   跨模型二审 diff(需 FLOW_REVIEW_CMD)
+  secret   扫密钥
+  check    secret + verify + review 全跑
+  status   打印 .flow/state.json
+退出码: 0=过 / 1=拦 / 2=错
+EOF
+    [ "$cmd" = help ] && exit 0 || exit 2
+    ;;
+esac

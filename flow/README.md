@@ -75,6 +75,8 @@ flow
 - ⏳ state.json/recover、断言防护、commit-msg 追溯待补
 
 能力件(SKILL.md):
-- ✅ 7 个 mattpocock skill 逐字 vendored(S1-S6),MIT 许可随附
-- ⏳ tdd 的附属 `tests.md`/`mocking.md`、`CONTEXT.md`/ADR 约定待补(限流未拉全)
-- ⏳ spec↔verify 集成缺口未解决;retro/放跑等 flow-native 件未写(见 SOURCES.md)
+- ✅ mattpocock 逐字 vendored:grilling/to-prd/to-issues/tdd(+附属)/code-review/diagnosing-bugs
+- ✅ flow-native 综合:spec/slice/implement/retro(诚实标注,见 SOURCES.md)
+- ⏳ `CONTEXT.md`/ADR 约定待建;放跑挡位/recover 未做
+
+回归测试:`./flow/test/smoke.sh`(16 项,门禁自测,跨模型审用 mock)。跑法见 `PLAYBOOK.md`。

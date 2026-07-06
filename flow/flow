@@ -25,7 +25,8 @@ case "$cmd" in
     "$here/lib/review.sh"      "$@"
     ;;
   status)
-    exec "$here/lib/state.sh" show
+    "$here/lib/state.sh" show
+    printf '位置(据 artifact 推导): %s\n' "$("$here/lib/state.sh" derive)"
     ;;
   help|*)
     cat >&2 <<'EOF'

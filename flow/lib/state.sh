@@ -52,6 +52,20 @@ case "$cmd" in
   show)
     [ -f "$STATE" ] && cat "$STATE" || echo "(无 .flow/state,尚未 init)"
     ;;
+  derive)
+    # 当前位置**据 artifact 推导**(不靠命令驱动,漏跑也不会错;抄 web-dev-skills 无状态重建)
+    if grep -q "^step: done" "$STATE" 2>/dev/null; then echo done
+    elif [ ! -f "$root/.flow/approved" ]; then echo grill
+    elif [ ! -f "$root/spec.md" ]; then echo spec
+    elif [ ! -f "$root/.flow/tasks.md" ]; then echo slice
+    else
+      # 注:grep -c 无匹配时打印 0 但退出 1,用 || true 吞掉退出码(不能用 || echo 0,会拼成两行)
+      total=$(grep -coE '\] +T[0-9]+' "$root/.flow/tasks.md" 2>/dev/null || true)
+      done_n=$(grep -c '^slice .*: done' "$STATE" 2>/dev/null || true)
+      if [ "$total" -gt 0 ] && [ "$done_n" -ge "$total" ]; then echo review  # 切片都 done,待任务级收口/审查
+      else echo implement; fi
+    fi
+    ;;
   *)
-    echo "用法: state.sh <init|step|slice|show> ..." >&2; exit "$EXIT_ERROR" ;;
+    echo "用法: state.sh <init|step|slice|show|derive> ..." >&2; exit "$EXIT_ERROR" ;;
 esac

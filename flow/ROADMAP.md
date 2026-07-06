@@ -105,9 +105,13 @@
 - [x] 接线欠账:补 slice(产 tasks.md)+ implement(flow-native,查 approved/记 summary/经 complete)+ 切片级 verify(修 --complete-slice 跑本片 verify)+ summary 接线件 + tdd 附属 + PLAYBOOK
 - [x] 门禁自测 `flow/test/smoke.sh`:16 项回归(secret/verify/完成权/切片边界/review mock 管路/接线件),全绿
 - [x] review 管路已用 mock 验证(喂对 spec+diff、识别 BLOCK、落盘、拦截);**判断质量**才需真模型
-- [ ] **Phase 5(下一步):端到端** ← 一个真实小任务走完 grill→spec→slice→implement→complete→review(mock 或真)→retro
-- [ ] 仍欠:CONTEXT.md/ADR 约定;放跑挡位;recover;改断言防护
-- [ ] Phase 4 收尾:补附属 + 接线
-- [ ] Phase 5:端到端
+- [x] **Phase 5:端到端实测已过** ← greet 真任务从 grill 走到 retro,7 个 artifact 按契约流转、门禁全触发、status 全程跟得上(修了 2 个实测暴露的 bug:derive 的 grep-c 退出码、smoke 的 cwd+token字面量)
+- [x] step 推进洞已修:改为**据 artifact 推导**(state.sh derive),不靠命令驱动,漏跑也不错
+- [ ] 仍欠(非阻塞):CONTEXT.md/ADR 约定;放跑挡位;recover;改断言防护;review 判断质量需真模型
 
 **做一点是一点的原则**:按 Phase 顺序走,每个停靠点系统都合得上;跳着做会撞穿脊柱契约,别跳。
+
+## 实测结论(2026-07-06)
+
+**骨架 + 三处合成 + craft 采用 + 契约接线,端到端实测跑通。** greet 小任务全链无报错,16 项回归全绿。
+仍是"可用骨架"而非成品:review 判断质量要配真模型、有几处手动接缝、CONTEXT/ADR/放跑/recover 未做——但**核心流程从"理论通"变成了"实测通"**。

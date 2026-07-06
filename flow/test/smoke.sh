@@ -12,11 +12,13 @@ assert_exit() { local want="$1" msg="$2"; shift 2; "$@" >/dev/null 2>&1; local g
 mkrepo() { local d; d=$(mktemp -d); ( cd "$d"; git init -q; printf '.flow/\n' > .gitignore; echo x > README.md; git add -A; git commit -q -m init ); echo "$d"; }
 
 echo "== secret-scan =="
-d=$(mkrepo)
+# 假 token 动态拼接,使本文件源码里**不含**可被扫中的字面量(否则扫 flow 仓库会误报自己)
+faketok="ghp_$(printf 'A%.0s' $(seq 1 36))"
+d=$(mkrepo); cd "$d"   # 必须在临时仓库内跑(否则会去扫当前仓库)
 assert_exit 0 "干净仓库放行" "$FLOWDIR/lib/secret-scan.sh"
-printf 'k="ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"\n' > "$d/leak.js"
-assert_exit 1 "命中假 token 拦截" "$FLOWDIR/lib/secret-scan.sh" "$d/leak.js"
-rm -rf "$d"
+printf 'k="%s"\n' "$faketok" > leak.js
+assert_exit 1 "命中假 token 拦截" "$FLOWDIR/lib/secret-scan.sh" leak.js
+cd "$FLOWDIR"; rm -rf "$d"
 
 echo "== verify(任务级)=="
 d=$(mkrepo); cd "$d"

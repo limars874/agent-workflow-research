@@ -61,6 +61,7 @@ slice T2: ...
 
 - **为何行式而非 JSON**:纯 bash 用 grep/sed 就能读写,零依赖(不引 jq/python),更合"轻+可魔改"。这是 Phase 2 的一次**明面契约演进**(state.json → .flow/state),不是私有旁路。
 - **刻意无时间戳**(抄 web-dev-skills):状态可由 status 枚举 + tasks 依赖无状态重建,避免时间戳漂移。
+- **`step` 不靠命令驱动,靠 artifact 推导**(`state.sh derive`):无 approved→grill;有 approved 无 spec.md→spec;有 spec 无 tasks.md→slice;有切片未全 done→implement;切片全 done→review;`step: done` 已写→done。理由:命令驱动漏跑就错,推导则永远和 artifact 一致。存进文件的 `step` 只有 `done`(verify 写)是权威,中间态一律以 derive 为准。
 - **完成权铁律**:`step: done` 与 `slice X: done` **只准 `verify.sh` 在退出码为 0 时写**。`state.sh` 负责其余状态,且**拒绝**写任何 done。其他任何件、LLM 直接写 done 都视为违约。
 
 ## 咬合自检(任何改动后问自己)

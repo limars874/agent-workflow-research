@@ -9,7 +9,9 @@ case "$cmd" in
   verify) exec "$here/lib/verify.sh" "$@" ;;
   review) exec "$here/lib/review.sh" "$@" ;;
   secret) exec "$here/lib/secret-scan.sh" "$@" ;;
-  state)  exec "$here/lib/state.sh" "$@" ;;
+  state)   exec "$here/lib/state.sh" "$@" ;;
+  approve) exec "$here/lib/record.sh" approve "$@" ;;
+  learn)   exec "$here/lib/record.sh" learn "$@" ;;
   complete)
     # 完成权:跑验证,全绿才由 verify.sh 写 done。给了 slice-id 则切片级,否则任务级。
     if [ -n "${1:-}" ]; then exec "$here/lib/verify.sh" --complete-slice "$1"
@@ -32,6 +34,8 @@ case "$cmd" in
   review              跨模型二审 diff(需 FLOW_REVIEW_CMD)
   secret              扫密钥
   check               secret + verify + review 全跑
+  approve [决议]      写 .flow/approved(grill 对齐后)
+  learn <文本>        追加 .flow/learnings.md(retro 回写)
   state <init|step|slice|show>  读写任务状态(不能写 done)
   status              打印 .flow/state
 退出码: 0=过 / 1=拦 / 2=错

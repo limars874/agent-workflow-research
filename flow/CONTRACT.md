@@ -19,9 +19,11 @@
 | 状态 | `.flow/state` | **脚本**(`state.sh`/`verify.sh`) | recover、status、人 | 见 §state;行式、**无时间戳**;`done` 只准 verify.sh 写 |
 | 记账 | `.flow/summary.md` | implement(S4) | review、retro | 追加:每片 做了/偏差(Rule 几)/遗留 stub |
 | 审查 | `.flow/reviews/<sha>.md` | review.sh(S6) | 人、retro | 跨模型二审结论 |
-| 沉淀 | `.flow/learnings.md` | retro(S8) | 毕业进 `AGENTS.md` → 下个 session 自动加载 | 追加:坑/因/策 |
+| 沉淀-流水账 | `.flow/learnings.md` | retro(S8)经 `./flow learn` | retro 自己筛 | 本地噪音日志,**不入库** |
+| 沉淀-生效层 | `AGENTS.md`(仓库根) | retro 毕业稳定项 | **每个 host 启动自动加载** | 入库;不靠 hook 的自动注入 |
 
-`.flow/` 是运行态,已在 `.gitignore`(不入库)。`spec.md`、`AGENTS.md` 入库。
+`.flow/` 是运行态,已在 `.gitignore`(不入库),故 `learnings.md`/`approved`/`state`/`evidence` 都是**本地**的。
+`spec.md`、`AGENTS.md` **入库**。双层沉淀:噪音留本地 learnings.md,稳定项毕业进入库的 AGENTS.md 才生效。
 
 ## spec.md 格式(窄腰,Phase 1 定稿)
 

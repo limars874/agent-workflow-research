@@ -68,9 +68,10 @@
 **从谁吸取**:trellis(回写作 commit 前置)+ maestro(洞见自动注入)。二者各做一半且**都不能抄**。
 **合成出的新物**:host 无关双环——回写 `.flow/learnings.md`,稳定项**毕业进 `AGENTS.md`**(每个 host 启动自动加载 = 不靠 hook 的注入)。
 
-- [ ] 写 `flow/skills/retro/SKILL.md`(flow-native)
-- [ ] 定"毕业"规则:learnings.md 是流水账,AGENTS.md 是提炼后生效的规则
-- ✅ **咬合检查点**:retro 读 `summary.md`+`reviews/`,写 `learnings.md`;毕业目标 `AGENTS.md` 确实被下个 session 加载
+- [x] 写 `flow/skills/retro/SKILL.md`(flow-native,合成 trellis+maestro)
+- [x] 薄接线件 `lib/record.sh`:`./flow approve`(写 .flow/approved)、`./flow learn`(追加 learnings.md)
+- [x] 定"毕业"规则:learnings.md 本地流水账(不入库),AGENTS.md 入库+自动加载=注入层
+- [x] ✅ **咬合检查点已过**:approve/learn 写对契约文件;`git check-ignore` 确认 learnings.md 忽略、AGENTS.md 可入库(两层分明)
 
 ---
 
@@ -100,8 +101,9 @@
 - [x] Phase 0:立脊柱 `CONTRACT.md`(artifact 契约 + state.json 字段)
 - [x] Phase 1:S2 规格合成 + verify 咬合(keystone)——**咬合检查点已过**
 - [x] Phase 2:完成权接线(state.sh 拒写 done + verify.sh 唯一 done 写者)——**咬合检查点已过**
-- [ ] **Phase 3(下一步):retro 双环** ← 回写 learnings + 毕业进 AGENTS.md
-- [ ] Phase 5:端到端
+- [x] Phase 3:retro 双环(回写 learnings + 毕业进 AGENTS.md)——**咬合检查点已过**
+- [ ] Phase 4 收尾:补 tdd 附属(tests.md/mocking.md)、vendored skill 接线到契约
+- [ ] **Phase 5(下一步):端到端** ← 一个真实小任务走完 grill→spec→slice→implement→verify→review→retro
 - [ ] Phase 4 收尾:补附属 + 接线
 - [ ] Phase 5:端到端
 

@@ -43,7 +43,7 @@ vendored 文件里有指向**尚未拉取**的兄弟文件/约定,现在是悬�
 | 能力 | 状态 | 综合自哪些机制(致敬,非复制) |
 |---|---|---|
 | `spec/`(S2 规格) | ✅ 已写 | spec-kit 的需求编号+converge 反查、missions 的机器可验收+反 mock、mattpocock 的 seam 先约定。**是原创综合,不是任何一家的复制** |
-| retro / learnings | ⏳ 未写 | 源是 trellis(AGPL,传染,不能抄)+ maestro(无 LICENSE,不能抄)——只能自组 |
+| `retro/`(S8 复盘) | ✅ 已写 | trellis 的回写 + maestro 的自动注入,合成为 host 无关双层(本地 learnings.md → 毕业进入库 AGENTS.md)。**综合,非复制**(两源分别 AGPL/无许可,本就不能抄) |
 | 放跑挡位 / 状态恢复 | ⏳ 未写 | 本就是本仓库自有机制 |
 
 ---

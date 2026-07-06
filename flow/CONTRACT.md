@@ -16,7 +16,7 @@
 | 规格 | `spec.md`(仓库根) | spec(S2) | verify.sh、implement、review、retro | 见 §spec.md 格式;**窄腰** |
 | 批准信号 | `.flow/approved` | grill(S1)经 `./flow approve` | implement 前置 | 追加:`<ISO时间> approved: <一句话决议>` |
 | 切片 | `.flow/tasks.md` | slice(S3) | implement、run-loop | 每片:`- [ ] T<n>` + `files:` + `verify:` + 可选 `depends:` |
-| 状态 | `.flow/state.json` | **脚本** | recover、status、人 | 见 §state.json;**无时间戳** |
+| 状态 | `.flow/state` | **脚本**(`state.sh`/`verify.sh`) | recover、status、人 | 见 §state;行式、**无时间戳**;`done` 只准 verify.sh 写 |
 | 记账 | `.flow/summary.md` | implement(S4) | review、retro | 追加:每片 做了/偏差(Rule 几)/遗留 stub |
 | 审查 | `.flow/reviews/<sha>.md` | review.sh(S6) | 人、retro | 跨模型二审结论 |
 | 沉淀 | `.flow/learnings.md` | retro(S8) | 毕业进 `AGENTS.md` → 下个 session 自动加载 | 追加:坑/因/策 |
@@ -47,18 +47,19 @@
 
 **约定**:`verify:` 行是硬契约,`verify.sh` 抽取并逐条执行。AC 后括号里的 `(R#)` 使"需求→验收"可追溯(抄 spec-kit 编号),供 review/retro 做反向查漏(抄 spec-kit converge)。
 
-## state.json 格式
+## state 格式(`.flow/state`,行式)
 
-```json
-{
-  "task": "<任务名,对应 spec.md 标题>",
-  "step": "grill|spec|slice|implement|verify|review|retro",
-  "slices": [ {"id": "T1", "status": "pending|running|done|blocked"} ],
-  "updated_by": "<最后写它的件名>"
-}
+```
+task: <任务名,对应 spec.md 标题>
+step: grill|spec|slice|implement|verify|review|retro|done
+updated_by: <最后写它的件名>
+slice T1: pending|running|done|blocked
+slice T2: ...
 ```
 
-**刻意无时间戳**(抄 web-dev-skills):状态可由"文件存在性 + status 枚举 + tasks 依赖"无状态重建,便于断点恢复且避免时间戳漂移。
+- **为何行式而非 JSON**:纯 bash 用 grep/sed 就能读写,零依赖(不引 jq/python),更合"轻+可魔改"。这是 Phase 2 的一次**明面契约演进**(state.json → .flow/state),不是私有旁路。
+- **刻意无时间戳**(抄 web-dev-skills):状态可由 status 枚举 + tasks 依赖无状态重建,避免时间戳漂移。
+- **完成权铁律**:`step: done` 与 `slice X: done` **只准 `verify.sh` 在退出码为 0 时写**。`state.sh` 负责其余状态,且**拒绝**写任何 done。其他任何件、LLM 直接写 done 都视为违约。
 
 ## 咬合自检(任何改动后问自己)
 

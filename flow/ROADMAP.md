@@ -53,9 +53,11 @@
 **从谁吸取**:consensus-rnd(只认退出码 + sentinel,日志文本不算)+ maestro(完成态只准 CLI 写)。
 **合成出的新物**:host 无关的轻量版——`state.json` 的 `slices[].status=done` **只准 verify.sh 按退出码翻**,LLM 永远不能自己写 done。
 
-- [ ] `verify.sh` 全绿时,由脚本把对应 slice 翻成 `done` 写入 `state.json`
-- [ ] pre-push 适配层:非全绿则 `state` 不动、push 被拦
-- ✅ **咬合检查点**:审查代码里没有任何路径让 LLM 直接写 `state.json` 的 done(只 verify.sh 能)
+- [x] `lib/state.sh` 单一写者(pending/running/blocked/step),**拒绝写任何 done**
+- [x] `verify.sh --complete[-slice]`:全绿时才写 `done`(任务级/切片级),是 done 的唯一入口
+- [x] `flow complete [slice-id]` 派发;`flow status`/`state` 读写 `.flow/state`
+- [x] pre-push 适配层:非全绿则退出 1、push 被拦、state 不动(沿用现有 verify)
+- [x] ✅ **咬合检查点已过**:①state.sh 写 done 被拒(退出2)②验收失败 complete 后 state 无 done ③全绿后仅 verify.sh 写 done ④代码审查确认全仓只有 verify.sh 全绿分支写 done
 
 > 停靠点 B:完成权从 LLM 手里剥夺,机器说了算。
 
@@ -97,8 +99,9 @@
 - [x] Phase 4 部分:7 个 craft 件 vendored
 - [x] Phase 0:立脊柱 `CONTRACT.md`(artifact 契约 + state.json 字段)
 - [x] Phase 1:S2 规格合成 + verify 咬合(keystone)——**咬合检查点已过**
-- [ ] **Phase 2(下一步):完成权接线** ← verify 全绿由脚本翻 state.json 的 done
-- [ ] Phase 3:retro 双环
+- [x] Phase 2:完成权接线(state.sh 拒写 done + verify.sh 唯一 done 写者)——**咬合检查点已过**
+- [ ] **Phase 3(下一步):retro 双环** ← 回写 learnings + 毕业进 AGENTS.md
+- [ ] Phase 5:端到端
 - [ ] Phase 4 收尾:补附属 + 接线
 - [ ] Phase 5:端到端
 

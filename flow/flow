@@ -9,6 +9,12 @@ case "$cmd" in
   verify) exec "$here/lib/verify.sh" "$@" ;;
   review) exec "$here/lib/review.sh" "$@" ;;
   secret) exec "$here/lib/secret-scan.sh" "$@" ;;
+  state)  exec "$here/lib/state.sh" "$@" ;;
+  complete)
+    # 完成权:跑验证,全绿才由 verify.sh 写 done。给了 slice-id 则切片级,否则任务级。
+    if [ -n "${1:-}" ]; then exec "$here/lib/verify.sh" --complete-slice "$1"
+    else exec "$here/lib/verify.sh" --complete; fi
+    ;;
   check)
     # 全门顺跑:任一非零即停并透传退出码
     "$here/lib/secret-scan.sh" "$@" && \
@@ -16,17 +22,18 @@ case "$cmd" in
     "$here/lib/review.sh"      "$@"
     ;;
   status)
-    root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-    if [ -f "$root/.flow/state.json" ]; then cat "$root/.flow/state.json"; else echo '{"state":"none","note":".flow/state.json 尚未创建"}'; fi
+    exec "$here/lib/state.sh" show
     ;;
   help|*)
     cat >&2 <<'EOF'
-用法: ./flow <命令> [--range R]
-  verify   跑 spec.md 里的验收命令(完成权门禁)
-  review   跨模型二审 diff(需 FLOW_REVIEW_CMD)
-  secret   扫密钥
-  check    secret + verify + review 全跑
-  status   打印 .flow/state.json
+用法: ./flow <命令> [参数]
+  verify              跑 spec.md 验收命令(完成权门禁)
+  complete [slice-id] 跑验证,全绿才写 done(任务级/切片级;done 唯一入口)
+  review              跨模型二审 diff(需 FLOW_REVIEW_CMD)
+  secret              扫密钥
+  check               secret + verify + review 全跑
+  state <init|step|slice|show>  读写任务状态(不能写 done)
+  status              打印 .flow/state
 退出码: 0=过 / 1=拦 / 2=错
 EOF
     [ "$cmd" = help ] && exit 0 || exit 2

@@ -102,8 +102,9 @@
 - [x] Phase 1:S2 规格合成 + verify 咬合(keystone)——**咬合检查点已过**
 - [x] Phase 2:完成权接线(state.sh 拒写 done + verify.sh 唯一 done 写者)——**咬合检查点已过**
 - [x] Phase 3:retro 双环(回写 learnings + 毕业进 AGENTS.md)——**咬合检查点已过**
-- [ ] Phase 4 收尾:补 tdd 附属(tests.md/mocking.md)、vendored skill 接线到契约
-- [ ] **Phase 5(下一步):端到端** ← 一个真实小任务走完 grill→spec→slice→implement→verify→review→retro
+- [x] 接线欠账:补 slice(产 tasks.md)+ implement(flow-native,查 approved/记 summary/经 complete)+ 切片级 verify(修 --complete-slice 跑本片 verify)+ summary 接线件 + tdd 附属 + PLAYBOOK
+- [ ] **Phase 5(下一步):端到端** ← 一个真实小任务走完 grill→spec→slice→implement→complete→review→retro
+- [ ] 仍欠:review 需配 FLOW_REVIEW_CMD 才真跑;CONTEXT.md/ADR 约定;放跑挡位;recover;改断言防护
 - [ ] Phase 4 收尾:补附属 + 接线
 - [ ] Phase 5:端到端
 

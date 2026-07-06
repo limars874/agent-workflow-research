@@ -42,20 +42,36 @@ _write_done_stamp() {
   else printf 'updated_by: verify.sh\n' >> "$STATE"; fi
 }
 
-if [ ! -f "$spec" ]; then
-  flow_warn "无 spec.md,跳过验证(range=$FLOW_RANGE)。约定:验收标准写成 'verify: <命令>'"
-  exit "$EXIT_PASS"
+# 验收命令来源:
+#   --complete-slice <id> → 跑 .flow/tasks.md 里该切片自己的 verify(切片级)
+#   否则                  → 跑 spec.md 全部 AC 的 verify(任务级)
+tasks="$root/.flow/tasks.md"
+if [ -n "$complete_slice" ]; then
+  if [ ! -f "$tasks" ]; then
+    flow_err "要按切片验收但无 .flow/tasks.md(先跑 slice)"; exit "$EXIT_ERROR"
+  fi
+  # 抽取该切片块(从 '] <id>' 到下一个 '- [' 之间)的 verify 行,id 精确匹配(T1 不误命中 T10)
+  mapfile -t cmds < <(awk -v id="$complete_slice" '
+    $0 ~ ("\\] +" id "([^0-9]|$)") {inblk=1; next}
+    inblk && /^- \[/ {inblk=0}
+    inblk && /^[[:space:]]*verify:/ {sub(/^[[:space:]]*verify:[[:space:]]*/,""); print}
+  ' "$tasks")
+  src="切片 $complete_slice"
+else
+  if [ ! -f "$spec" ]; then
+    flow_warn "无 spec.md,跳过验证(range=$FLOW_RANGE)。约定:验收标准写成 'verify: <命令>'"
+    exit "$EXIT_PASS"
+  fi
+  mapfile -t cmds < <(grep -oE '^[[:space:]]*verify:[[:space:]]*.+' "$spec" | sed -E 's/^[[:space:]]*verify:[[:space:]]*//')
+  src="spec.md"
 fi
-
-# 抽取 verify 行(形如:  verify: pnpm test foo)
-mapfile -t cmds < <(grep -oE '^[[:space:]]*verify:[[:space:]]*.+' "$spec" | sed -E 's/^[[:space:]]*verify:[[:space:]]*//')
 
 if [ "${#cmds[@]}" -eq 0 ]; then
-  flow_warn "spec.md 里没有 verify: 行,无可执行验收"
+  flow_warn "$src 里没有可执行的 verify: 行"
   exit "$EXIT_PASS"
 fi
 
-flow_log "共 ${#cmds[@]} 条验收命令,逐条执行"
+flow_log "[$src] 共 ${#cmds[@]} 条验收命令,逐条执行"
 fail=0
 mkdir -p "$root/.flow/evidence"
 i=0

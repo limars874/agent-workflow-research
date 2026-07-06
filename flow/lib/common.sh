@@ -14,13 +14,17 @@ flow_repo_root() { git rev-parse --show-toplevel 2>/dev/null || pwd; }
 # 从 --range 参数取范围;缺省用 origin/main...HEAD,首次推送(无 origin/main)则退化为全部提交。
 # 用法:eval "$(flow_parse_range "$@")" 之后用 $FLOW_RANGE
 flow_default_range() {
+  # 无任何提交(空仓库):无 range 可算,回空(review 会据此跳过)
+  if ! git rev-parse --verify -q HEAD >/dev/null 2>&1; then
+    echo ""; return
+  fi
   if git rev-parse --verify -q origin/main >/dev/null 2>&1; then
     echo "origin/main...HEAD"
   elif git rev-parse --verify -q main >/dev/null 2>&1; then
     echo "main...HEAD"
   else
     # 无基线:全部历史
-    echo "$(git rev-list --max-parents=0 HEAD | tail -1)...HEAD"
+    echo "$(git rev-list --max-parents=0 HEAD 2>/dev/null | tail -1)...HEAD"
   fi
 }
 

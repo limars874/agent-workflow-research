@@ -21,18 +21,15 @@
 | `grilling/SKILL.md` | productivity/grilling/SKILL.md | S1 澄清意图 | ✅ 逐字 |
 | `to-prd/SKILL.md` | engineering/to-prd/SKILL.md | S2 写清规格 | ✅ 逐字 |
 | `to-issues/SKILL.md` | engineering/to-issues/SKILL.md | S3 小步切片 | ✅ 逐字 |
-| `implement/SKILL.md` | engineering/implement/SKILL.md | S4 实现 | ✅ 逐字 |
-| `tdd/SKILL.md` | engineering/tdd/SKILL.md | S5 验证 | ✅ 逐字 |
+| `tdd/SKILL.md` (+tests.md, mocking.md) | engineering/tdd/ | S5 验证 | ✅ 逐字(附属已补齐) |
 | `code-review/SKILL.md` | engineering/code-review/SKILL.md | S6 独立审查 | ✅ 逐字 |
 | `diagnosing-bugs/SKILL.md` | engineering/diagnosing-bugs/SKILL.md | S5 调试 | ✅ 逐字 |
 
-### ⚠️ 未闭合的引用(限流未拉全,TODO)
-vendored 文件里有指向**尚未拉取**的兄弟文件/约定,现在是悬空链接:
-- `tdd/SKILL.md` → `tests.md`、`mocking.md`(附属,必须补,否则 tdd 不完整)
-- 多处引用 `CONTEXT.md` 约定(项目领域词汇表)与 `ADR`(架构决策记录)——这是 mattpocock 套装的**隐含前置**,采用需一并建立
-- `implement` → `/tdd`、`/code-review`(套装内互引,已在本目录,OK)
+### 未闭合的引用(现状)
+- ✅ `tdd/tests.md`、`tdd/mocking.md` 已补齐(限流解除后拉到,逐字)
+- ⏳ 多处引用 `CONTEXT.md`(项目领域词汇表)与 `ADR`——mattpocock 套装的**隐含前置**,采用需一并建立(尚未做)
 
-**含义**:mattpocock 的 skill 是**一套互相咬合的套装**,不是孤立文件。要忠实使用,得连 `tests.md`/`mocking.md`/`CONTEXT.md`/ADR 约定一起采纳。下次限流解除补齐。
+**含义**:mattpocock 的 skill 是一套互相咬合的套装。tdd 附属已补;CONTEXT.md/ADR 约定待建。
 
 ---
 
@@ -43,6 +40,8 @@ vendored 文件里有指向**尚未拉取**的兄弟文件/约定,现在是悬�
 | 能力 | 状态 | 综合自哪些机制(致敬,非复制) |
 |---|---|---|
 | `spec/`(S2 规格) | ✅ 已写 | spec-kit 的需求编号+converge 反查、missions 的机器可验收+反 mock、mattpocock 的 seam 先约定。**是原创综合,不是任何一家的复制** |
+| `slice/`(S3 切片) | ✅ 已写 | superpowers 的"reviewer 可独立批准"切分标准 + gsd 竖切 + maestro 反过度切分。产出契约 `tasks.md`。**综合** |
+| `implement/`(S4 实现) | ✅ 已写(**取代原 vendored**) | gsd 的偏差四规则 + mattpocock implement 的"seam 处用 tdd、收尾 code-review"编排思路 + 本契约接线(查 approved / 写 summary / 经 complete 收口)。**flow-native:因必须咬合契约,vendored 版无法胜任** |
 | `retro/`(S8 复盘) | ✅ 已写 | trellis 的回写 + maestro 的自动注入,合成为 host 无关双层(本地 learnings.md → 毕业进入库 AGENTS.md)。**综合,非复制**(两源分别 AGPL/无许可,本就不能抄) |
 | 放跑挡位 / 状态恢复 | ⏳ 未写 | 本就是本仓库自有机制 |
 

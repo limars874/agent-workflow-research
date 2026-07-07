@@ -21,11 +21,33 @@
 ## 装到你的项目
 
 ```bash
-cp -r flow /你的项目/           # 或 git submodule
+cp -r flow /你的项目/           # 或 git submodule。flow/ 必须在项目根
 cd /你的项目
+echo '.flow/' >> .gitignore
 ./flow/profiles/install.sh standard   # 接 pre-push;light=纯手动;max=全接
-# skill:把 flow/skills/ 指给你的 host(Claude Code .claude/skills、Codex AGENTS.md 引用等)
 ```
+
+## 装能力件(skill)—— 按 host 放进各自的发现目录
+
+SKILL.md 是**开放标准**(Agent Skills),多数 host 会**自动扫描特定目录**发现它、按 description 触发。**不是**写进 AGENTS.md/CLAUDE.md 引用(那是另一层:always-on 项目上下文)。放法按 host:
+
+| host | skill 放哪(自动发现) |
+|---|---|
+| Claude Code | `.claude/skills/<name>/SKILL.md` |
+| Codex | `.agents/skills/<name>/SKILL.md`(仓库级)或 `~/.codex/skills/`(用户级) |
+| 跨 host 同步 | 用安装器 `npx skills add ...`,一次投影到多个 host |
+
+最简单:把 `flow/skills/` 下每个目录**软链**到对应位置,例:
+```bash
+mkdir -p .claude/skills && ln -s ../../flow/skills/* .claude/skills/   # Claude Code
+# 或 Codex:mkdir -p .agents/skills && ln -s ../../flow/skills/* .agents/skills/
+```
+
+⚠️ **不可移植项(诚实)**:
+- `code-review` 用的"并行 fresh subagent(上下文 fork)"是 **Claude Code 独有**,在 Codex 上会退化为同上下文审查(独立性打折)。
+- 只有**核心 frontmatter**(name/description)跨 host;工具特有字段(如 Codex 的 openai.yaml、某些 Claude-only 字段)不通用。
+
+⚠️⚠️ **最大的诚实边界**:我**只端到端测过脚本层**(bash 里跑 verify/complete/review 等,16 项回归 + greet 全链)。**skill 被真实 host 自动加载并正确触发/遵循,我没测过。** 纯手动用没问题(skill 就是 prose,你/agent 照着做即可);但"host 自动发现+按 description 隐式调用"这套,得你在自己的 Claude Code/Codex 里实测才算数。
 
 ## 配 review(否则 S6 是空过)
 

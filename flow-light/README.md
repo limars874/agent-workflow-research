@@ -1,6 +1,8 @@
-# skills 整合库(companion-light)
+# flow-light(陪伴型 · 项目记忆层)
 
-陪伴架构的 AI 编码 skills 整合库。**采用**现成好 skill(mattpocock)+ **自建项目记忆层** + 按需补真实缺口。
+`flow-*` 家族的**陪伴轻量版**。一套陪伴架构的 AI 编码 workflow:**采用**现成好 skill(mattpocock)+ **自建项目记忆层** + 按需补真实缺口。
+
+> **家族命名**(按架构分):`flow-light`=陪伴轻量(本目录);`flow-ultra-max`/`flow-max`=分解编排重版(给小上下文 host,未来另起)。前身 `flow`(v1-hybrid)已退役。
 
 - **目标 host**:Codex(上下文可持续性强,压缩不跑偏)
 - **架构**:companion-light(陪伴轻量),不掺分解编排型的重机器

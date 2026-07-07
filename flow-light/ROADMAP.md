@@ -1,6 +1,6 @@
-# ROADMAP · skills 整合库(companion-light)
+# ROADMAP · flow-light(陪伴型)
 
-> 定位:一个**陪伴架构**的 skills 整合库 —— 采用现成好 skill(mattpocock)+ 自建**项目记忆层** + 按需补真实缺口。
+> `flow-*` 家族的陪伴轻量版。采用现成好 skill(mattpocock)+ 自建**项目记忆层** + 按需补真实缺口。
 > 目标 host:Codex(高上下文可持续)。**机器门禁/脚本暂缓**,先纯手动跑通。
 > 纪律:见文末"从 v1 失败学到的规矩"。**痛点驱动,不预先建全。**
 

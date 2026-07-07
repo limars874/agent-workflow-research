@@ -4,17 +4,19 @@
 
 ## 一次任务的完整序列
 
-| 步 | 谁做 | 命令 / 动作 | 产出(契约 artifact) |
+> skill 用 `/名` 手动触发(或 host 按 description 自动触发);脚本用 `./flow ...` 敲命令。
+
+| 步 | 谁做 | 怎么触发 / 动作 | 产出(契约 artifact) |
 |---|---|---|---|
-| S1 澄清 | skill `grilling` | 拷问对齐到共识 | — |
+| S1 澄清 | skill | `/grilling` → 拷问对齐到共识 | — |
 | 🖐 接缝 | 你 | `./flow approve "用CSV不用xlsx"` | `.flow/approved` |
-| S2 规格 | skill `spec` | 写规格 | `spec.md` |
-| S3 切片 | skill `slice` | 切竖片 | `.flow/tasks.md` |
-| S4 实现(每片) | skill `implement` | `./flow state slice T1 running` → 写码(用 `tdd`/`code-review`) | 代码 |
-| 🖐 记账 | implement | `./flow summary "T1: 做了X/偏差Y/stub Z"` | `.flow/summary.md` |
+| S2 规格 | skill | `/spec` → 写规格 | `spec.md` |
+| S3 切片 | skill | `/slice` → 切竖片 | `.flow/tasks.md` |
+| S4 实现(每片) | skill | `/implement`(内部用 `/tdd`、`/code-review`);`./flow state slice T1 running` | 代码 |
+| 🖐 记账 | 你/agent | `./flow summary "T1: 做了X/偏差Y/stub Z"` | `.flow/summary.md` |
 | S5 完成权 | 脚本 | `./flow complete T1` | 全绿才写 `slice T1: done` |
 | S6 审查 | 脚本 | push → pre-push 跑 `verify`+`review` | `.flow/reviews/<sha>.md` |
-| S8 复盘 | skill `retro` | `./flow learn "..."` → 毕业进 `AGENTS.md` | `.flow/learnings.md`、`AGENTS.md` |
+| S8 复盘 | skill | `/retro`;`./flow learn "..."` → 毕业进 `AGENTS.md` | `.flow/learnings.md`、`AGENTS.md` |
 
 随时 `./flow status` 看 `.flow/state`。断了看 `spec.md`+`tasks.md`+`state` 就能接上。
 
@@ -43,11 +45,17 @@ mkdir -p .claude/skills && ln -s ../../flow/skills/* .claude/skills/   # Claude 
 # 或 Codex:mkdir -p .agents/skills && ln -s ../../flow/skills/* .agents/skills/
 ```
 
+**放好后,怎么触发(两条都正经)**:
+- **手动**:直接打 `/skill名`(命令名 = skill 目录名)——如 `/grilling`、`/spec`、`/slice`、`/implement`、`/tdd`、`/code-review`、`/retro`。**稳,不看 description 脸色**。
+- **自动**:正常干活,host 按 skill 的 `description` 自己判断要不要调。省事,但**取决于 description 写得好不好**(我们 vendored 的 mattpocock 件 description 是按触发词写的,flow-native 几个可能需要调)。
+
+**手动 `/名` 是最可靠的起点**;自动触发是锦上添花。
+
 ⚠️ **不可移植项(诚实)**:
 - `code-review` 用的"并行 fresh subagent(上下文 fork)"是 **Claude Code 独有**,在 Codex 上会退化为同上下文审查(独立性打折)。
 - 只有**核心 frontmatter**(name/description)跨 host;工具特有字段(如 Codex 的 openai.yaml、某些 Claude-only 字段)不通用。
 
-⚠️⚠️ **最大的诚实边界**:我**只端到端测过脚本层**(bash 里跑 verify/complete/review 等,16 项回归 + greet 全链)。**skill 被真实 host 自动加载并正确触发/遵循,我没测过。** 纯手动用没问题(skill 就是 prose,你/agent 照着做即可);但"host 自动发现+按 description 隐式调用"这套,得你在自己的 Claude Code/Codex 里实测才算数。
+⚠️⚠️ **最大的诚实边界**:我**只端到端测过脚本层**(bash 里跑 verify/complete/review 等,16 项回归 + greet 全链)。**skill 放进真实 host 后,`/名` 手动触发、以及按 description 自动触发,我都没在 Claude Code/Codex 里实测过。** 逻辑上 `/名` 手动触发最稳(不依赖 description),但仍需你在自己机器上验一次才算数。
 
 ## 配 review(否则 S6 是空过)
 

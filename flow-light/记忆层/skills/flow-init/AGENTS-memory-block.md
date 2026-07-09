@@ -6,7 +6,7 @@
 
 Memory lives in `docs/`.
 
-- **At session start / on a new session / continuing a task**: read `PROGRESS.md` first to resume. If the current user message is the same task → trust it and continue; if it's a new task → judge from the message and rewrite PROGRESS via flow-progress.
-- **Before acting**: read `constraints.md` (and `frontend.md` / `backend.md` if present, when touching them). For direction read `ROADMAP.md`; for "how did we get here" read `journal.md`; for lessons read `learnings.md`; for decisions read `docs/adr/`, `CONTEXT.md`.
-- **Main-line priority**: current user message > code and verification evidence > `PROGRESS` (progress only) > other memory files.
+- **At session start / on a new session / continuing a task**: read `progress.md` first to resume. If the current user message is the same task → trust it and continue; if it's a new task → judge from the message and rewrite progress via flow-progress.
+- **Before acting**: read `constraints.md` if present. If its `Status` is `confirmed`, obey it; if `draft` or missing, use it only as review context. For direction read `roadmap.md` with the same status rule. For "how did we get here" read `journal.md`; for lessons read `learnings.md`; for decisions read `docs/adr/`, `CONTEXT.md`.
+- **Main-line priority**: current user message > code and verification evidence > confirmed memory files > `progress.md` (progress only) > draft memory files and history.
 - **Maintenance**: update progress with `flow-progress`, record what happened with `flow-journal`, capture lessons with `flow-reflect` (each fires itself at the right moment).

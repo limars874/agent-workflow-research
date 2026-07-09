@@ -11,7 +11,7 @@ This is a capability, not a ceremony. Record at a natural wrap point — a sessi
 
 Keep the three trace files distinct:
 - **journal** — what happened this session, chronological (here).
-- **PROGRESS** — where the work is now, a snapshot (flow-progress).
+- **progress** — where the work is now, a snapshot (flow-progress).
 - **learnings** — the abstract lesson to apply next time (flow-reflect). A lesson may be drawn from a journal entry, but the two are separate lines.
 
 The entry is done when it says what changed, what was decided and why, and points to the commit — enough that a teammate reading it later knows what this session was about.

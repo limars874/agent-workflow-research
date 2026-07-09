@@ -15,6 +15,6 @@
 
 ## Rules
 
-- **Append, never rewrite.** History stays — this is the opposite of PROGRESS.
+- **Append, never rewrite.** History stays — this is the opposite of progress.
 - **Record decisions and why, not diffs.** git already holds the diffs; the journal holds the reasoning git can't.
 - **One entry per wrap point, not per action.** If nothing worth remembering happened, write nothing.

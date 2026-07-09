@@ -1,6 +1,6 @@
-# PROGRESS.md Format
+# progress.md Format
 
-`docs/PROGRESS.md` is a snapshot of the present, not a log. Rewrite the whole file each time; ≤70 lines.
+`docs/progress.md` is a snapshot of the present, not a log. Rewrite the whole file each time; ≤70 lines.
 
 ## Structure
 

@@ -5,7 +5,7 @@
 ## 装到项目(一次性)
 1. 装 mattpocock skill(到 `.agents/skills/`),跑 `/setup-matt-pocock-skills`(建它的 docs/agents 配置 + CONTEXT.md 约定)。
 2. 把 `skills/flow-init/` 也放进 `.agents/skills/`,跑 `/flow-init`(建我们的记忆层 + 写 AGENTS.md 记忆层节)。
-3. 旧项目:`/flow-init` 阶段 2 会读代码反推 `constraints.md` 草稿；`roadmap.md` 只有用户明确要求才生成草稿。用户确认前两者不具备约束力。
+3. 旧项目:`/flow-init` 阶段 2 会读代码反推 `constraints.md` 草稿；`roadmap.md` 只有用户明确要求才生成。`Status` 按内容来源定:用户明确给出的内容可直接 confirmed,模型推断/补全的内容为 draft。
 
 > 前期 setup 和 flow-init **两个都用**(先 setup 后 flow-init),各管各的文件、互不覆盖。用一阵再决定要不要合成一个。
 
@@ -31,7 +31,7 @@
 `AGENTS.md` 是 Codex 每会话**自动加载**的(`model_instructions_file`)。里面的"读写规则"让 AI 自己在开工时读 `progress.md` 复位、动手前读 `constraints.md` 并检查其 `Status`。这就是 helloagents 在 Codex 上免 hook 读回的真相,我们照做——**无任何脚本/hook**。
 
 ## 三层记忆一句话
-- **记忆(耐久)**:constraints / CONTEXT / ADR / roadmap —— 慢变,塑造"怎么做";constraints 和 roadmap 只有 `Status: confirmed` 才生效
+- **记忆(耐久)**:constraints / CONTEXT / ADR / roadmap —— 慢变,塑造"怎么做";constraints 和 roadmap 的 owner-provided / owner-confirmed 内容可 `Status: confirmed`,模型推断或补全内容保持 `Status: draft`
 - **状态(易变)**:progress —— 快变,答"我在哪、下一步",复位靠它
 - **追溯(增长)**:learnings —— 追加,稳定的升级成 constraints
 

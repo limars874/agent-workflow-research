@@ -1,6 +1,6 @@
 # constraints.md Format
 
-`docs/constraints.md` holds project-wide rules. It starts as a draft and becomes binding only after owner confirmation.
+`docs/constraints.md` holds project-wide rules. Its file-level `Status` says whether the document is binding.
 
 ## Structure
 
@@ -26,7 +26,7 @@
 
 ## Rules
 
-- **Status is file-level.** New files start as `draft`; change to `confirmed` only after the owner reviews and accepts the whole document. Missing status means draft.
+- **Status is file-level.** Use `confirmed` only when the file contains owner-provided or owner-confirmed content. Use `draft` when material content is inferred from code, inferred from history, or filled in by the model. Missing status means draft.
 - **Draft is not binding.** Use draft constraints as review context, not as rules future tasks must obey.
 - **Give each rule a reason or a `file/path`.** A rule the next run can't justify, it won't follow.
 - **Rules, not terms or rationale.** A domain term belongs in `CONTEXT.md`; a one-off decision's why belongs in `docs/adr/`; a standing rule belongs here.

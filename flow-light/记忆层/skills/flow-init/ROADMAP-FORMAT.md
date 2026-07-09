@@ -1,6 +1,6 @@
 # roadmap.md Format
 
-`docs/roadmap.md` holds the plan (what, in what order) and the progress (what's done) in one file. It starts as a draft and becomes directional only after owner confirmation. No time estimates.
+`docs/roadmap.md` holds the plan (what, in what order) and the progress (what's done) in one file. Its file-level `Status` says whether it is committed direction. No time estimates.
 
 ## Structure
 
@@ -31,7 +31,7 @@
 
 ## Rules
 
-- **Status is file-level.** New files start as `draft`; change to `confirmed` only after the owner reviews and accepts the whole document. Missing status means draft.
+- **Status is file-level.** Use `confirmed` only when the file contains owner-provided or owner-confirmed direction. Use `draft` when material content is inferred from code, inferred from history, or filled in by the model. Missing status means draft.
 - **Draft is not direction.** Use a draft roadmap as planning input, not as committed project direction.
 - **Milestone → Phase → Plan.** A small project can use just Phases + a checklist.
 - **Success criteria are observable, user-facing behaviours** — not implementation steps.

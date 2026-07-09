@@ -36,8 +36,8 @@ For a brownfield repo, also confirm you'll read the code to draft the constraint
 ### 3. Write the skeleton
 Create any missing file in `docs/`, each in its owning format:
 - `progress.md` (Goal = "init", Doing now = "idle") — see the flow-progress skill's `PROGRESS-FORMAT.md`.
-- `constraints.md` — see [CONSTRAINTS-FORMAT.md](./CONSTRAINTS-FORMAT.md); new files start with `Status: draft`.
-- `roadmap.md` — see [ROADMAP-FORMAT.md](./ROADMAP-FORMAT.md); new files start with `Status: draft`.
+- `constraints.md` — see [CONSTRAINTS-FORMAT.md](./CONSTRAINTS-FORMAT.md); set file `Status` from the source of its content.
+- `roadmap.md` — see [ROADMAP-FORMAT.md](./ROADMAP-FORMAT.md); set file `Status` from the source of its content.
 - `learnings.md` — just a `# Lessons` heading; the flow-reflect skill owns its entry format.
 - `journal.md` — just a `# Journal` heading; the flow-journal skill owns its entry format.
 
@@ -51,7 +51,9 @@ Read the codebase and draft `constraints.md`. Draft `roadmap.md` only if the use
 
 Route by kind: a domain term belongs in `CONTEXT.md` (domain-modeling's territory), a rule belongs in constraints. Report that a secrets file exists; read its values never. Mark anything uncertain "unsure". Existing code is evidence for a draft, not product intent by itself.
 
+Set status by source: `confirmed` only when the file contains owner-provided or owner-confirmed content; `draft` when material content is inferred from code, inferred from history, or filled in by the model. If mixed or uncertain, use `draft` and show the user what needs confirmation.
+
 ### 5. Confirm and finish
-Show the drafted `constraints.md` (and `roadmap.md`) to the user before relying on them — durable memory earns a human pass. Keep them `Status: draft` until the owner confirms them; only confirmed documents are binding. Let them edit. Then set `progress.md` to the user's real task, or "idle".
+Show the drafted `constraints.md` (and `roadmap.md`) to the user before relying on them — durable memory earns a human pass. Only confirmed documents are binding. Let them edit. Then set `progress.md` to the user's real task, or "idle".
 
 Tell the user the memory layer is live, and that `flow-progress` and `flow-reflect` maintain it from here.

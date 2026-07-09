@@ -58,4 +58,6 @@ Set status by source: `confirmed` only when the file contains owner-provided or 
 ### 5. Confirm and finish
 Show the drafted `constraints.md` (and `roadmap.md`) to the user before relying on them — durable memory earns a human pass. Only confirmed documents are binding. Let them edit. Then set `progress.md` to the user's real task, or "idle".
 
-Tell the user the memory layer is live, and that `flow-progress` and `flow-reflect` maintain it from here.
+Append the first entry to `journal.md`, in the flow-journal skill's format, recording the initialization: greenfield or brownfield, which memory files were created, the `Status` of constraints/roadmap, the owner's choices, and the next useful step. Keep it short — it records the event, not the content of constraints or roadmap. This is the trace line's origin entry.
+
+Tell the user the memory layer is live, and that `flow-progress`, `flow-journal`, and `flow-reflect` maintain it from here.

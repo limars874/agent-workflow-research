@@ -9,20 +9,23 @@
 
 > 前期 setup 和 flow-init **两个都用**(先 setup 后 flow-init),各管各的文件、互不覆盖。用一阵再决定要不要合成一个。
 
-## 文件布局(全在 docs/agents/,规整)
+## 文件布局(持续更新的记忆放 docs/,一次性配置留 docs/agents/)
 ```
 项目根/
-  AGENTS.md                    # Codex 每会话自读;含"## 项目记忆层"节(读写规则+指针)
-  CONTEXT.md                   # mattpocock:术语表(原位)
-  docs/adr/                    # mattpocock:架构决策(原位)
-  docs/agents/
+  AGENTS.md                    # Codex 每会话自读;含"## Project memory (flow-light)"节(读写规则+指针)
+  CONTEXT.md                   # mattpocock:术语表(原位;你后续可挪进 docs/)
+  docs/
     PROGRESS.md                # 复位状态(≤70行/5段/整体重写)← 跨会话不失忆
     constraints.md             # 项目约束(技术/架构/风格)← 补 mattpocock 最大的缺
     frontend.md / backend.md   # (可选)大块约束按需拆
     ROADMAP.md                 # 项目蓝图(里程碑→阶段→plan)
     learnings.md               # 教训沉淀
-    issue-tracker.md/…         # mattpocock setup 建的(共处一室)
+    journal.md                 # 开发日志(追加式)
+    adr/                       # mattpocock:架构决策(原位)
+  docs/agents/                 # mattpocock setup 的一次性配置(issue-tracker/triage-labels/domain),不更新,故与我们的持续更新记忆分开
 ```
+
+> **为何分开**:`docs/agents/` 是 setup 一次性生成、之后不动的静态配置;我们这几个是**持续更新**的项目记忆,放 `docs/` 更规整、人也找得到、git log 不被混淆。
 
 ## 为什么 Codex 上不用 hook 也能"记住"
 `AGENTS.md` 是 Codex 每会话**自动加载**的(`model_instructions_file`)。里面的"读写规则"让 AI 自己在开工时读 `PROGRESS.md` 复位、动手前读 `constraints.md`。这就是 helloagents 在 Codex 上免 hook 读回的真相,我们照做——**无任何脚本/hook**。

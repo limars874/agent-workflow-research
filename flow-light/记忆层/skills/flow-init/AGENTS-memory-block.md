@@ -4,7 +4,7 @@
 
 ## Project memory (flow-light)
 
-Memory lives in `docs/agents/`.
+Memory lives in `docs/`.
 
 - **At session start / on a new session / continuing a task**: read `PROGRESS.md` first to resume. If the current user message is the same task → trust it and continue; if it's a new task → judge from the message and rewrite PROGRESS via flow-progress.
 - **Before acting**: read `constraints.md` (and `frontend.md` / `backend.md` if present, when touching them). For direction read `ROADMAP.md`; for "how did we get here" read `journal.md`; for lessons read `learnings.md`; for decisions read `docs/adr/`, `CONTEXT.md`.

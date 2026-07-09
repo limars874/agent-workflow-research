@@ -1,6 +1,6 @@
 # journal.md Format
 
-`docs/agents/journal.md` is append-only, newest at the bottom. One entry per session or meaningful chunk of work.
+`docs/journal.md` is append-only, newest at the bottom. One entry per session or meaningful chunk of work.
 
 ## Structure
 

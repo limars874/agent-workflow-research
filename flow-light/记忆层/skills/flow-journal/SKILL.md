@@ -1,11 +1,11 @@
 ---
 name: flow-journal
-description: Append a session record to docs/agents/journal.md — what happened, what was decided, the commit. Use when wrapping a session or a meaningful chunk of work, or after a commit worth remembering.
+description: Append a session record to docs/journal.md — what happened, what was decided, the commit. Use when wrapping a session or a meaningful chunk of work, or after a commit worth remembering.
 ---
 
 # Record what happened
 
-`docs/agents/journal.md` is the append-only history of the project: what each session did and decided, in order. It answers "how did we get here" — the reasoning trail git commits don't hold. Write the entry in the format in [JOURNAL-FORMAT.md](./JOURNAL-FORMAT.md).
+`docs/journal.md` is the append-only history of the project: what each session did and decided, in order. It answers "how did we get here" — the reasoning trail git commits don't hold. Write the entry in the format in [JOURNAL-FORMAT.md](./JOURNAL-FORMAT.md).
 
 This is a capability, not a ceremony. Record at a natural wrap point — a session end, a milestone, a commit worth remembering — not after every step. A journal that logs everything becomes noise no one reads; if nothing worth remembering happened, write nothing.
 

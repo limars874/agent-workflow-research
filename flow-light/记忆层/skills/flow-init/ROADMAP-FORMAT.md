@@ -1,6 +1,6 @@
 # ROADMAP.md Format
 
-`docs/agents/ROADMAP.md` holds the plan (what, in what order) and the progress (what's done) in one file. No time estimates.
+`docs/ROADMAP.md` holds the plan (what, in what order) and the progress (what's done) in one file. No time estimates.
 
 ## Structure
 

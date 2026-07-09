@@ -1,5 +1,5 @@
-<!-- 教训沉淀。触发条件与写法见 flow-reflect skill。 -->
+<!-- Lessons. Triggers and how to write them: see the flow-reflect skill. -->
 
-# 教训
+# Lessons
 
-- [2026-01-01] <示例:重构前先把现有行为列成清单再动手> — 背景:上次重构漏了空值分支,因为没先盘点已有行为
+- [2026-01-01] <e.g. inventory existing behaviour before refactoring> — context: last refactor dropped a null-branch because behaviour wasn't listed first

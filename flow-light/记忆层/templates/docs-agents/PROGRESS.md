@@ -1,18 +1,18 @@
-<!-- 复位状态。怎么写好一张快照见 flow-progress skill。 -->
+<!-- Resume state. How to write a good snapshot: see the flow-progress skill. -->
 
-# 恢复快照
+# Resume snapshot
 
-## 主线目标
-[一句话:当前这个连续任务真正要完成什么]
+## Goal
+[one line: what this continuous task must actually finish]
 
-## 正在做什么
-[一句话:当前任务 + 此刻正在执行的具体步骤。无任务写"空闲"]
+## Doing now
+[one line: current task + the exact step in progress. "idle" if none]
 
-## 关键上下文
-[复位必需的最小信息集:已定的关键决策、已改的文件+变更摘要、当前依赖的假设]
+## Key context
+[minimum to resume: decisions locked in, files changed + summary, assumptions in play]
 
-## 下一步
-[具体到能立即执行的下一个动作,含文件路径]
+## Next
+[the next action, concrete enough to start immediately, with file paths]
 
-## 阻塞项
-（无）
+## Blockers
+(none)

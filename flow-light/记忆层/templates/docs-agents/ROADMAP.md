@@ -1,31 +1,30 @@
-<!-- 项目蓝图(抄 gsd,轻量版)。放 docs/agents/ROADMAP.md。
-     计划(要做什么、顺序)+ 进度(哪些完成)同一个文件。
-     里程碑 → 阶段 Phase → Plan 三层;小项目可只用 Phase + checklist。
-     不写时间估算。grill/to-prd 开工前读它对齐方向;to-issues 把切片归到某 Phase。 -->
+<!-- Roadmap (from gsd, lite). Plan (what/order) + progress (what's done) in one file.
+     Milestone → Phase → Plan; a small project can use just Phase + checklist. No time estimates.
+     grill/to-prd read it for direction; to-issues files each slice under a Phase. -->
 
-# 项目 ROADMAP
+# Roadmap
 
-## 里程碑
-- 🚧 M1 <当前里程碑一句话>
-- 📋 M2 <下一个>
+## Milestones
+- 🚧 M1 <current milestone, one line>
+- 📋 M2 <next>
 
-## Phase(当前里程碑内)
+## Phases (current milestone)
 
-### Phase 1 · <名>
-- **目标**:<一句话,用户视角>
-- **依赖**:<无 / Phase X>
-- **验收(可观察行为)**:<2-5 条>
+### Phase 1 · <name>
+- **Goal**: <one line, user-facing>
+- **Depends on**: <none / Phase X>
+- **Success criteria**: <2-5 observable behaviours>
 - **Plans**:
-  - [ ] 1-1 <plan 一句话>
+  - [ ] 1-1 <plan, one line>
   - [ ] 1-2 <...>
 
-### Phase 2 · <名>
-- **目标**:...
+### Phase 2 · <name>
+- **Goal**: ...
 - **Plans**:
   - [ ] 2-1 <...>
 
-## 进度
-| Phase | Plans 完成 | 状态 |
+## Progress
+| Phase | Plans done | Status |
 |---|---|---|
-| 1 | 0/2 | 进行中 |
-| 2 | 0/1 | 未开始 |
+| 1 | 0/2 | in progress |
+| 2 | 0/1 | not started |

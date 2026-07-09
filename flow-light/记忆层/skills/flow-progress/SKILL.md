@@ -1,20 +1,20 @@
 ---
 name: flow-progress
-description: 重写复位快照 docs/agents/PROGRESS.md。当完成一步、准备 commit、或关键决策/阻塞发生变化时触发,让新会话能从中断处接上。
+description: Rewrite the resume snapshot at docs/agents/PROGRESS.md. Use after finishing a step, before a commit, or when a key decision or blocker changes — so a fresh session can pick up where this one left off.
 ---
 
-# 重写复位快照
+# Rewrite the resume snapshot
 
-`docs/agents/PROGRESS.md` 是**当前状态的快照**,不是日志。每次整体重写:只留新会话续上所需的,过时的删掉。
+`docs/agents/PROGRESS.md` is a **snapshot** of the present, not a log. Rewrite the whole file each time: keep only what a fresh session needs to continue, and drop whatever has gone stale.
 
-五段(全文 ≤70 行):
-- **主线目标** — 当前这个连续任务真正要完成的那一件事。用户已切新任务就改写它。
-- **正在做什么** — 当前任务 + 此刻正在执行的那一步。
-- **关键上下文** — 复位所需的最小集:已锁定的决策、已改的文件+一句摘要、当前依赖的假设。留下一次用得上的。
-- **下一步** — 具体到能立即动手的下一个动作,带文件路径。
-- **阻塞项** — 卡在哪,或(无)。
+Five sections, ≤70 lines total:
+- **Goal** — the one thing this continuous task must finish. Rewrite it if the user has switched tasks.
+- **Doing now** — the current task and the exact step in progress.
+- **Key context** — the minimum to resume: decisions locked in, files changed with a one-line summary, assumptions in play. Keep what the next run will use.
+- **Next** — the next action, concrete enough to start immediately, with file paths.
+- **Blockers** — what's blocking, or (none).
 
-## 判断写得好不好的那一问
-问自己:**如果此刻上下文全没了,下一次单凭这个文件能接着做吗?** 不能 → 缺东西,补上。某一行帮不到那个"下一次" → 删掉。
+## The test that tells you it's good
+Ask: **if the context vanished right now, could the next run continue from this file alone?** If not, something's missing — add it. If a line wouldn't help that next run, cut it.
 
-收尾:文件通过这一问,且通篇是当前状态——只写现状。
+The snapshot is done when it passes that test and reads as the current state.

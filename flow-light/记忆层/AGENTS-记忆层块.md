@@ -1,12 +1,12 @@
-<!-- 把下面这一整节贴进你项目根的 AGENTS.md(Codex 每会话自动加载)。
-     独立成节,setup 的 ## Agent skills 块保持原样。
-     它每轮都占上下文,所以只放"必须每轮在场的反射"——craft 在各 skill 里,这里只指路。 -->
+<!-- Paste this whole section into your repo-root AGENTS.md (Codex auto-loads it every session).
+     A standalone section; leave setup's ## Agent skills block untouched.
+     It costs context every turn, so keep it to reflexes that must always be present — the craft lives in the skills; this only points. -->
 
-## 项目记忆层(flow-light)
+## Project memory (flow-light)
 
-记忆在 `docs/agents/`。
+Memory lives in `docs/agents/`.
 
-- **开工 / 新会话 / 延续任务**:先读 `PROGRESS.md` 复位。当前用户消息仍是同一任务 → 采信它接着做;已切新任务 → 按当前消息重判,并用 flow-progress 重写 PROGRESS。
-- **动手前**:读 `constraints.md`(碰前端读 `frontend.md`、碰后端读 `backend.md`,若存在)。要方向读 `ROADMAP.md`;查历史读 `learnings.md`、`docs/adr/`、`CONTEXT.md`。
-- **主线优先级**:当前用户消息 > 代码与验证证据 > `PROGRESS`(只补进度) > 其他记忆文件。
-- **维护**:进度更新用 `flow-progress`,教训沉淀用 `flow-reflect`(二者在该触发时自行触发)。
+- **At session start / on a new session / continuing a task**: read `PROGRESS.md` first to resume. If the current user message is the same task → trust it and continue; if it's a new task → judge from the message and rewrite PROGRESS via flow-progress.
+- **Before acting**: read `constraints.md` (and `frontend.md` / `backend.md` if present, when touching them). For direction read `ROADMAP.md`; for history read `learnings.md`, `docs/adr/`, `CONTEXT.md`.
+- **Main-line priority**: current user message > code and verification evidence > `PROGRESS` (progress only) > other memory files.
+- **Maintenance**: update progress with `flow-progress`, capture lessons with `flow-reflect` (both fire themselves at the right moment).

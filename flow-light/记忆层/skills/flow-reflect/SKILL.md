@@ -1,19 +1,16 @@
 ---
 name: flow-reflect
-description: 记一条教训。当一次修复经过 2+ 轮验证才通过、调试超过 3 次、中途换了方案、或用户纠正了你的错误假设时,触发。
+description: Record a lesson. Use when a fix took 2+ verification loops, debugging ran past 3 attempts, you changed approach mid-task, or the user corrected a wrong assumption.
 ---
 
-# 记一条教训
+# Record a lesson
 
-**教训**是下一次能直接照做的抽象指导——它是一条规则,而非一段代码。写"下次该怎么做",一到两行;具体代码片段会把下一个 agent 锚在错误的细节上。
+A **lesson** is abstract guidance the next run applies — a rule, not a snippet. Write what to do differently, in a line or two; a concrete code template anchors the next agent on the wrong details.
 
-## 步骤
-1. 把教训写成下一次会遵循的指导。一个要点,≤2 行。
-   - 收尾:一个全新 agent 单看这一行就知道下次怎么做,且无需复制任何代码。
-2. 追加到 `docs/agents/learnings.md`:
-   `- [日期] 教训 — 背景: 什么有效 / 什么失败(一句话)`
-   - 收尾:该行已在文件里,带日期与背景。
-3. 若这条教训稳定、且适用于每个任务,**升级**它:移进 `docs/agents/constraints.md` 成为常驻约束,让它今后约束每个任务,而不是躺在历史里。项目级的升级,一次性的留在 learnings。
-   - 收尾:每条教训要么在 constraints(通用),要么在 learnings(一次性),不两头都在。
+1. State the lesson as guidance the next run would follow. One idea, ≤2 lines.
+   - Done when a fresh agent, reading that line alone, knows what to do differently — with no code to copy.
+2. Append it to `docs/agents/learnings.md`:
+   `- [<date>] <lesson> — context: <what worked / what failed, one clause>`
+3. If the lesson is stable and applies to every task, graduate it: move it into `docs/agents/constraints.md` as a standing rule, so it binds every future task instead of sitting in history. A project-wide lesson graduates; a one-off stays.
 
-只记值得下一次注意的:花了真金白银时间的意外,而非例行步骤。
+Record only lessons worth the next run's attention — a surprise that cost real time, not a routine step.

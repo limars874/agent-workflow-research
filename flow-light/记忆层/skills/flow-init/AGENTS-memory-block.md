@@ -1,4 +1,4 @@
-<!-- Paste this whole section into your repo-root AGENTS.md (Codex auto-loads it every session).
+<!-- The section flow-init writes into the repo-root AGENTS.md (Codex auto-loads it every session).
      A standalone section; leave setup's ## Agent skills block untouched.
      It costs context every turn, so keep it to reflexes that must always be present — the craft lives in the skills; this only points. -->
 

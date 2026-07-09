@@ -31,9 +31,13 @@ Summarise what's present and what's missing, then confirm two things:
 - For a brownfield repo: that you'll read the code to draft the constraints, and they'll review that draft before it's relied on.
 
 ### 3. Write the skeleton
-- Create any missing file in `docs/agents/` from the flow-light templates: `PROGRESS.md` (Goal = "init", Doing now = "idle"), `constraints.md`, `ROADMAP.md`, `learnings.md`.
-- Add a `## Project memory (flow-light)` section to the chosen root file (the block from `AGENTS-记忆层块.md`). Update it in place if present; leave setup's `## Agent skills` block untouched.
-- Keep `docs/agents/PROGRESS.md` tracked in git, so any machine can resume.
+Create any missing file in `docs/agents/`, each in its owning format:
+- `PROGRESS.md` (Goal = "init", Doing now = "idle") — see the flow-progress skill's `PROGRESS-FORMAT.md`.
+- `constraints.md` — see [CONSTRAINTS-FORMAT.md](./CONSTRAINTS-FORMAT.md).
+- `ROADMAP.md` — see [ROADMAP-FORMAT.md](./ROADMAP-FORMAT.md).
+- `learnings.md` — just a `# Lessons` heading; the flow-reflect skill owns its entry format.
+
+Then add a `## Project memory (flow-light)` section to the chosen root file (from [AGENTS-memory-block.md](./AGENTS-memory-block.md)). Update it in place if present; leave setup's `## Agent skills` block untouched. Keep `docs/agents/PROGRESS.md` tracked in git, so any machine can resume.
 
 ### 4. Infer constraints (brownfield only)
 Read the codebase and draft `constraints.md` (and a first-pass `ROADMAP.md` if the user wants one). Sweep in focused passes; **every entry cites a `file/path` as evidence**:

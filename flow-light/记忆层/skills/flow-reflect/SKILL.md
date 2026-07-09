@@ -11,6 +11,6 @@ A **lesson** is abstract guidance the next run applies — a rule, not a snippet
    - Done when a fresh agent, reading that line alone, knows what to do differently — with no code to copy.
 2. Append it to `docs/learnings.md`:
    `- [<date>] <lesson> — context: <what worked / what failed, one clause>`
-3. If the lesson is stable and applies to every task, graduate it: move it into `docs/constraints.md` as a standing rule, so it binds every future task instead of sitting in history. A project-wide lesson graduates; a one-off stays.
+3. If the lesson is stable and worth making a hard rule, propose graduating it: draft it as a constraint, show the owner, and add it to `docs/constraints.md` only on their confirmation — so `constraints.md` stays owner-confirmed and binding. Until confirmed, the lesson stays in `learnings.md` and is applied as guidance, not as a binding rule. A one-off stays in learnings.
 
 Record only lessons worth the next run's attention — a surprise that cost real time, not a routine step.

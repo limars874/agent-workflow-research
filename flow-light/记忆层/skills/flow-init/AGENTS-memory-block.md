@@ -7,6 +7,6 @@
 Memory lives in `docs/agents/`.
 
 - **At session start / on a new session / continuing a task**: read `PROGRESS.md` first to resume. If the current user message is the same task → trust it and continue; if it's a new task → judge from the message and rewrite PROGRESS via flow-progress.
-- **Before acting**: read `constraints.md` (and `frontend.md` / `backend.md` if present, when touching them). For direction read `ROADMAP.md`; for history read `learnings.md`, `docs/adr/`, `CONTEXT.md`.
+- **Before acting**: read `constraints.md` (and `frontend.md` / `backend.md` if present, when touching them). For direction read `ROADMAP.md`; for "how did we get here" read `journal.md`; for lessons read `learnings.md`; for decisions read `docs/adr/`, `CONTEXT.md`.
 - **Main-line priority**: current user message > code and verification evidence > `PROGRESS` (progress only) > other memory files.
-- **Maintenance**: update progress with `flow-progress`, capture lessons with `flow-reflect` (both fire themselves at the right moment).
+- **Maintenance**: update progress with `flow-progress`, record what happened with `flow-journal`, capture lessons with `flow-reflect` (each fires itself at the right moment).

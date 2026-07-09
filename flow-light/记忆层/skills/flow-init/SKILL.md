@@ -39,6 +39,7 @@ Create any missing file in `docs/agents/`, each in its owning format:
 - `constraints.md` — see [CONSTRAINTS-FORMAT.md](./CONSTRAINTS-FORMAT.md).
 - `ROADMAP.md` — see [ROADMAP-FORMAT.md](./ROADMAP-FORMAT.md).
 - `learnings.md` — just a `# Lessons` heading; the flow-reflect skill owns its entry format.
+- `journal.md` — just a `# Journal` heading; the flow-journal skill owns its entry format.
 
 Then add a `## Project memory (flow-light)` section to the root file settled in step 2 (from [AGENTS-memory-block.md](./AGENTS-memory-block.md)), beside setup's `## Agent skills` block. Update it in place if it already exists in that file; leave setup's block untouched. Keep `docs/agents/PROGRESS.md` tracked in git, so any machine can resume.
 

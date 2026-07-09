@@ -45,7 +45,12 @@ skills/
     PROGRESS-FORMAT.md    PROGRESS.md 的结构+规则
   flow-reflect/         (model-invoked) 记教训
     SKILL.md              craft + 一行式格式(内联,太短不拆)
+  flow-journal/         (model-invoked) 记"这次会话干了啥"(追加式,能力非仪式)
+    SKILL.md              craft:三条 trace 分工 + 判断驱动
+    JOURNAL-FORMAT.md     journal.md 的结构+规则
 ```
+
+三条 trace 线各管各的(抄 trellis 三 store):**journal**=时间线"发生了什么" · **PROGRESS**=快照"现在在哪" · **learnings**=蒸馏教训(升进 constraints)。
 
 ## craft 与 FORMAT 各自单一真源(无重复,无独立 templates 目录)
 - **PROGRESS**:craft 在 flow-progress/SKILL,格式在 flow-progress/PROGRESS-FORMAT.md(flow-init 建它时指过来)。

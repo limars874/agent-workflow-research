@@ -25,6 +25,8 @@
 
 ## Rules
 
-- **Snapshot, not log.** Rewrite the whole file; keep the current state, drop what's gone stale.
+- **Snapshot, not log.** Rewrite the whole file; keep the current state, drop what's gone stale — including completed steps not needed to resume the next action.
 - **≤70 lines.** Longer means it's carrying history it shouldn't.
 - **Key context is the minimum to resume** — the decisions, files, and assumptions the next run needs, and nothing it doesn't.
+- **Not a source of truth.** Don't encode standing rules or committed direction here; point to confirmed constraints, roadmap, ADRs, or journal when they're needed.
+- **Blockers must be actionable.** Name the missing decision, input, or failing check; a vague blocker is noise.

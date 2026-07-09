@@ -1,6 +1,6 @@
 ---
 name: flow-progress
-description: Rewrite the resume snapshot at docs/progress.md. Use after finishing a step, before a commit, or when a key decision or blocker changes — so a fresh session can pick up where this one left off.
+description: Rewrite the resume snapshot at docs/progress.md. Use after finishing a meaningful step, when the next action changes, or when a key decision or blocker changes — so a fresh session can pick up where this one left off.
 ---
 
 # Rewrite the resume snapshot

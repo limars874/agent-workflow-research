@@ -5,7 +5,7 @@ description: Record a lesson. Use when a fix took 2+ verification loops, debuggi
 
 # Record a lesson
 
-A **lesson** is abstract guidance the next run applies — a rule, not a snippet. Write what to do differently, in a line or two; a concrete code template anchors the next agent on the wrong details.
+A **lesson** is abstract guidance the next run applies — a heuristic, not a snippet. Write what to do differently, in a line or two; a concrete code template anchors the next agent on the wrong details.
 
 1. State the lesson as guidance the next run would follow. One idea, ≤2 lines.
    - Done when a fresh agent, reading that line alone, knows what to do differently — with no code to copy.

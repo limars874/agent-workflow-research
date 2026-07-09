@@ -44,12 +44,14 @@ Create any missing file in `docs/`, each in its owning format:
 Then add a `## Project memory (flow-light)` section to the root file settled in step 2 (from [AGENTS-memory-block.md](./AGENTS-memory-block.md)), beside setup's `## Agent skills` block. Update it in place if it already exists in that file; leave setup's block untouched. Keep `docs/progress.md` tracked in git, so any machine can resume.
 
 ### 4. Infer constraints (brownfield only)
-Read the codebase and draft `constraints.md`. Draft `roadmap.md` only if the user explicitly wants one. Sweep in focused passes; **every inferred entry cites a `file/path` as evidence**:
+You're mapping the code to find **durable principles**, not cataloguing the current structure. Reading code tells you what *is*; a constraint is what *should hold across refactors*. So **abstract every observation up to a boundary before writing it** (see CONSTRAINTS-FORMAT's rules): "AX reads stay in the detection layer; currently `NativeDialogDetector`" — never "`NativeDialogDetector` exclusively does AX reads". Which type does what, and current mechanisms (keybindings, MVP flows, exact UX), are implementation facts — leave them out unless they express a boundary that should survive a refactor.
+
+Sweep in focused passes and abstract each into a principle:
 - **Stack** — package.json / pyproject / lockfiles / config → the locked stack and libraries → `## Stack`.
-- **Architecture** — directory layout, module boundaries, import direction → the layering rules → `## Architecture`.
+- **Architecture** — directory layout, module boundaries, import direction → the layering / dependency-direction rules → `## Architecture`.
 - **Style** — conventions the code holds consistently but that aren't self-evident → `## Style`.
 
-Route by kind: a domain term belongs in `CONTEXT.md` (domain-modeling's territory), a rule belongs in constraints. Report that a secrets file exists; read its values never. Mark anything uncertain "unsure". Existing code is evidence for a draft, not product intent by itself.
+Prefer a handful of strong boundaries over a per-file inventory. Route by kind: a domain term belongs in `CONTEXT.md` (domain-modeling's territory), a rule belongs in constraints. Report that a secrets file exists; read its values never. Mark anything uncertain "unsure". Existing code is evidence for a draft, not product intent by itself.
 
 Set status by source: `confirmed` only when the file contains owner-provided or owner-confirmed content; `draft` when material content is inferred from code, inferred from history, or filled in by the model. If mixed or uncertain, use `draft` and show the user what needs confirmation.
 

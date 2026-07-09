@@ -32,7 +32,15 @@
 - **状态(易变)**:PROGRESS —— 快变,答"我在哪、下一步",复位靠它
 - **追溯(增长)**:learnings —— 追加,稳定的升级成 constraints
 
-## 本目录内容(模板,供拷进项目)
-- `AGENTS-记忆层块.md` —— 贴进项目 AGENTS.md 的那一节
-- `templates/docs-agents/*` —— 四个文件模板(含填写说明)
-- `skills/flow-init/SKILL.md` —— `/flow-init` 初始化 skill
+## 本目录内容
+- `AGENTS-记忆层块.md` —— 贴进项目 AGENTS.md 的那一节(精简反射 + 指路,craft 不在这)
+- `templates/docs-agents/*` —— 四个文件模板(骨架;怎么写好见对应 skill)
+- `skills/` —— 三个 skill(craft 在这里):
+  - `flow-init`(**user-invoked**):初始化 + 旧项目读代码反推约束。手动 `/flow-init` 跑一次
+  - `flow-progress`(**model-invoked**):写好复位快照。agent 每步后/commit 前自动触发,人也可手打
+  - `flow-reflect`(**model-invoked**):记教训。agent 在教训时刻(2+验证/调试>3/换方案/被纠正)自动触发
+
+## craft 在哪(单一真源,不重复)
+- **怎么写好 PROGRESS** → flow-progress;**怎么记教训** → flow-reflect;**怎么初始化/反推约束** → flow-init。
+- AGENTS 块只留"每轮必须在场的反射"(开工读 PROGRESS、动手前读 constraints、维护指向那俩 skill),不重复 craft。
+- constraints / ROADMAP 无专属 skill,其填写说明留在各自模板里(它们是自己的 reference)。

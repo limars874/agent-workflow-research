@@ -1,7 +1,6 @@
 ---
 name: flow-progress
-description: 重写复位快照 docs/agents/PROGRESS.md,让新会话能从上次中断处无缝接上。
-disable-model-invocation: true
+description: 重写复位快照 docs/agents/PROGRESS.md。当完成一步、准备 commit、或关键决策/阻塞发生变化时触发,让新会话能从中断处接上。
 ---
 
 # 重写复位快照

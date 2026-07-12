@@ -16,6 +16,7 @@
 ## Rules
 
 - **Append, never rewrite.** History stays — this is the opposite of progress.
+- **Real dates only.** Take the date from the environment or `date +%F` — don't guess it.
 - **Record decisions and why, not diffs.** git already holds the diffs; the journal holds the reasoning git can't.
 - **One entry per wrap point, not per action.** If nothing worth remembering happened, write nothing.
 - **History, not instruction.** A journal entry explains what happened; it doesn't override the current user message, code, confirmed constraints, confirmed roadmap, or ADRs.

@@ -30,12 +30,26 @@ Summarise what's present and what's missing, then settle **which root file** the
 - If setup's `## Agent skills` block already exists, write the memory section into **that same file**, right after it. Don't split them across `AGENTS.md` and `CLAUDE.md`.
 - If setup hasn't run, follow setup's own rule: edit `CLAUDE.md` if it exists, else `AGENTS.md`, else ask the user which to create — don't pick for them.
 - If a `## Project memory (flow-light)` section already exists in a *different* file than setup's block, say so and move it beside setup's block.
+- **Host-readability check (overrides co-location)**: the memory layer only works if the host auto-loads the file every session. Codex reads `AGENTS.md`, not `CLAUDE.md`. If the rules above land the section in a file the user's host doesn't auto-load (e.g. Codex + only `CLAUDE.md`), tell the user and settle it with them — usually by creating `AGENTS.md` (and keeping the two in sync, or making one point to the other). A perfectly co-located section the host never reads is worthless.
 
 For a brownfield repo, also confirm you'll read the code to draft the constraints, and they'll review that draft before it's binding.
 
 ### 3. Write the skeleton
 Create any missing file in `docs/`, each in its owning format:
-- `progress.md` (Goal = "init", Doing now = "idle") — see the flow-progress skill's `PROGRESS-FORMAT.md`.
+- `progress.md` — the flow-progress skill owns its format; seed it minimal:
+  ```md
+  # Resume snapshot
+  ## Goal
+  Set up the flow-light memory layer
+  ## Doing now
+  idle
+  ## Key context
+  (none)
+  ## Next
+  (none)
+  ## Blockers
+  (none)
+  ```
 - `constraints.md` — see [CONSTRAINTS-FORMAT.md](./CONSTRAINTS-FORMAT.md); set file `Status` from the source of its content.
 - `roadmap.md` — see [ROADMAP-FORMAT.md](./ROADMAP-FORMAT.md); set file `Status` from the source of its content.
 - `learnings.md` — just a `# Lessons` heading; the flow-reflect skill owns its entry format.
@@ -58,6 +72,6 @@ Set status by source: `confirmed` only when the file contains owner-provided or 
 ### 5. Confirm and finish
 Show the drafted `constraints.md` (and `roadmap.md`) to the user before relying on them — durable memory earns a human pass. Only confirmed documents are binding. Let them edit. Then set `progress.md` to the user's real task, or "idle".
 
-Append the first entry to `journal.md`, in the flow-journal skill's format, recording the initialization: greenfield or brownfield, which memory files were created, the `Status` of constraints/roadmap, the owner's choices, and the next useful step. Keep it short — it records the event, not the content of constraints or roadmap. This is the trace line's origin entry.
+Append the first entry to `journal.md` (`## [<date>] <title>` with **Did** / **Decided** / **Refs** bullets — the flow-journal skill owns the format), recording the initialization: greenfield or brownfield, which memory files were created, the `Status` of constraints/roadmap, the owner's choices, and the next useful step. Keep it short — it records the event, not the content of constraints or roadmap. This is the trace line's origin entry.
 
 Tell the user the memory layer is live, and that `flow-progress`, `flow-journal`, and `flow-reflect` maintain it from here.

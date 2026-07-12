@@ -11,6 +11,10 @@ A **lesson** is abstract guidance the next run applies — a heuristic, not a sn
    - Done when a fresh agent, reading that line alone, knows what to do differently — with no code to copy.
 2. Append it to `docs/learnings.md`:
    `- [<date>] <lesson> — context: <what worked / what failed, one clause>`
-3. If the lesson is stable and worth making a hard rule, propose graduating it: draft it as a constraint, show the owner, and add it to `docs/constraints.md` only on their confirmation — so `constraints.md` stays owner-confirmed and binding. Until confirmed, the lesson stays in `learnings.md` and is applied as guidance, not as a binding rule. A one-off stays in learnings.
+   Take the date from the environment or `date +%F` — don't guess it.
+3. If the lesson is stable and worth making a hard rule, propose graduating it: draft it as a constraint, show the owner, and add it to `docs/constraints.md` only on their confirmation. **`Status` is file-level**, so mind the file it lands in:
+   - If `constraints.md` is `Status: confirmed`, the confirmed rule goes in and stays binding.
+   - If it's `draft` (or missing status), a confirmed rule buried in a draft file binds nothing — so graduating is also the moment to ask the owner to review the whole file and flip it to `confirmed`. If they won't confirm the file yet, the lesson stays in `learnings.md` as guidance; don't add it to a file that can't carry it.
+   A one-off stays in learnings.
 
 Record only lessons worth the next run's attention — a surprise that cost real time, not a routine step.
